@@ -13,11 +13,15 @@
 @class locationServicesEnabled;
 
 
-@interface MapViewController () <UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating, MapSearchProtocol>
+@interface MapViewController () <UISearchControllerDelegate, UISearchBarDelegate,UISearchResultsUpdating, MapSearchProtocol>
 
 
 @property (nonatomic,strong) NSArray *resultsArray;
 @property (nonatomic, strong) MapSearch *mapSearch;
+@property (nonatomic, strong) UISearchController *searchController;
+@property(nonatomic, weak) id< UISearchResultsUpdating > searchResultsUpdater;
+@property(nonatomic, getter=isEditing) BOOL isSearching;
+
 
 @end
 
@@ -34,8 +38,6 @@
 
     self.mapView.delegate = self;
     [[self mapView] setShowsUserLocation:YES];
-    
-
     [[self locationManager] setDelegate:self];
     [[self locationManager] setDesiredAccuracy:kCLLocationAccuracyBest];
     [[self locationManager] startUpdatingLocation];
@@ -43,8 +45,11 @@
     [self.mapView setMapType:MKMapTypeStandard];
     [self.mapView setZoomEnabled:YES];
     [self.mapView setScrollEnabled:YES];
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.searchResultsUpdater = self;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+    self.searchController.searchBar.delegate = self;
     
-     self.geoLocation = [[CLGeocoder alloc] init];
     
     // Do any additional setup after loading the view.
 }
@@ -87,14 +92,39 @@
     [self.mapView setRegion:[self.mapView regionThatFits:region] animated:YES];
 }
 
-- (void)searchDisplayControllerWillBeginSearch {
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
-    NSString *searchString = self.searchBar.text;
+    [searchBar becomeFirstResponder];
+    NSString *searchString = self.searchController.searchBar.text;
+    
     [self.mapSearch searchWithTerm:searchString];
-    
-    //you won't use UISearchController delegate method but SearchDisplayController since it is connected
+
     
 }
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    
+    [searchBar setShowsCancelButton:YES];
+    self.mapView.scrollEnabled = NO;
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
+    self.isSearching = NO;
+    
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    
+    [self.searchBar resignFirstResponder];
+}
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    
+    NSString *searchString = self.searchController.searchBar.text;
+
+    [self.mapSearch searchWithTerm:searchString];
+}
+
+
 
 -(void)foundResults:(NSArray *)resultsArray {
     

@@ -63,8 +63,8 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
     [searchBar becomeFirstResponder];
-    //
-    //    searchBar.text = searchBar.text;
+    
+
     
     NSLog(@"%@",searchBar.text);
 }

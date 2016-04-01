@@ -67,19 +67,9 @@
                     <connections>
                         <outlet property="mapView" destination="yRR-cd-Wo8" id="VrR-78-iuH"/>
                         <outlet property="searchBar" destination="GpQ-W8-zsS" id="3X3-be-qyg"/>
-                        <outlet property="searchDisplayController" destination="wVt-AA-fnF" id="m6E-Ib-4iM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="wVt-AA-fnF">
-                    <connections>
-                        <outlet property="delegate" destination="BYZ-38-t0r" id="sNJ-NG-lRJ"/>
-                        <outlet property="searchBar" destination="GpQ-W8-zsS" id="dg6-ec-lfx"/>
-                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="mhC-YM-TcJ"/>
-                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="mzm-p6-ZvX"/>
-                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="UYU-ax-bGv"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1261" y="297"/>
         </scene>
@@ -121,7 +111,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="searchBar" destination="FdN-fs-TiA" id="d6r-it-smM"/>
                         <outlet property="tableView" destination="aeK-Nn-1Px" id="UPO-Mf-qSm"/>
                     </connections>
                 </viewController>

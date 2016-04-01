@@ -38,7 +38,7 @@
 		<string>MKDirectionsModeCar</string>
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>BlocSpot would like to use your location. </string>
+	<string>Let me stalk you. </string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
