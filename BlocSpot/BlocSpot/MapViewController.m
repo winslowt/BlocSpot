@@ -8,19 +8,25 @@
 
 #import "MapViewController.h"
 #import "MapSearch.h"
+#import <MapKit/MKAnnotation.h>
+#import "MySearchResultsController.h"
 
 @class MKMapView;
 @class locationServicesEnabled;
 
 
-@interface MapViewController () <UISearchControllerDelegate, UISearchBarDelegate,UISearchResultsUpdating, MapSearchProtocol>
+@interface MapViewController () <UISearchControllerDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchResultsUpdating, MapSearchProtocol>
 
 
 @property (nonatomic,strong) NSArray *resultsArray;
 @property (nonatomic, strong) MapSearch *mapSearch;
-@property (nonatomic, strong) UISearchController *searchController;
 @property(nonatomic, weak) id< UISearchResultsUpdating > searchResultsUpdater;
+@property (nonatomic, strong) UISearchController *searchController;
 @property(nonatomic, getter=isEditing) BOOL isSearching;
+@property (nonatomic, strong) UITableView *tableView;
+@property (strong, nonatomic) NSMutableArray* allTableData;
+@property (strong, nonatomic) NSMutableArray* filteredTableData;
+
 
 
 @end
@@ -45,14 +51,18 @@
     [self.mapView setMapType:MKMapTypeStandard];
     [self.mapView setZoomEnabled:YES];
     [self.mapView setScrollEnabled:YES];
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    
+    MySearchResultsController *searchResultsController = [[MySearchResultsController alloc] init];
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:searchResultsController];
     self.searchController.searchResultsUpdater = self;
     self.searchController.dimsBackgroundDuringPresentation = NO;
     self.searchController.searchBar.delegate = self;
-    
-    
+    self.tableView.tableHeaderView = self.searchController.searchBar;
+    self.definesPresentationContext = YES;
+    [self.searchController.searchBar sizeToFit];
     // Do any additional setup after loading the view.
 }
+
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     
@@ -68,6 +78,13 @@
     }
     
 }
+
+#pragma mark search controller delegate
+
+- (void)willPresentSearchController:(UISearchController *)searchController {
+    
+}
+#pragma mark tableView data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
@@ -86,44 +103,71 @@
     return cell;
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    return 1;
+    
+}
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleNone;
+    
+}
+
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(nonnull MKUserLocation *)userLocation {
     
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800);
     [self.mapView setRegion:[self.mapView regionThatFits:region] animated:YES];
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    
-    [searchBar becomeFirstResponder];
-    NSString *searchString = self.searchController.searchBar.text;
-    
-    [self.mapSearch searchWithTerm:searchString];
-
-    
-}
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     
     [searchBar setShowsCancelButton:YES];
     self.mapView.scrollEnabled = NO;
+    self.tableView.allowsSelection = YES;
+
 }
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    
+    //[searchBar becomeFirstResponder];
+    NSLog(@"%@",searchBar.text);
+    NSString *searchString = self.searchController.searchBar.text;
+    
+    [self.mapSearch searchWithTerm:searchString];
+    
+    
+}
+//
+//-(void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)text {
+//  
+//    if (searchBar.text == @"") {
+//        
+//}
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
     self.isSearching = NO;
+    [self.searchController.searchBar resignFirstResponder];
+ 
     
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     
-    [self.searchBar resignFirstResponder];
+    [self.searchController.searchBar resignFirstResponder];
 }
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     
     NSString *searchString = self.searchController.searchBar.text;
 
     [self.mapSearch searchWithTerm:searchString];
+    [self.tableView reloadData];
 }
 
+//- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
+//{
+//    [self updateSearchResultsForSearchController:self.searchController];
+//}
 
 
 -(void)foundResults:(NSArray *)resultsArray {

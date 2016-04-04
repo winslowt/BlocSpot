@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA0D46DD1CB1EB8A00DCDFD5 /* MySearchResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0D46DC1CB1EB8A00DCDFD5 /* MySearchResultsController.m */; };
 		DA253B311CA6E3E000080B87 /* LocationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA253B2F1CA6E3E000080B87 /* LocationTableViewController.m */; };
 		DA253B321CA6E3E000080B87 /* LocationTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA253B301CA6E3E000080B87 /* LocationTableViewController.xib */; };
 		DA253B351CA6E5BB00080B87 /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DA253B341CA6E5BB00080B87 /* DataSource.m */; };
@@ -34,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DA0D46DB1CB1EB8A00DCDFD5 /* MySearchResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySearchResultsController.h; sourceTree = "<group>"; };
+		DA0D46DC1CB1EB8A00DCDFD5 /* MySearchResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySearchResultsController.m; sourceTree = "<group>"; };
 		DA253B2E1CA6E3E000080B87 /* LocationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationTableViewController.h; sourceTree = "<group>"; };
 		DA253B2F1CA6E3E000080B87 /* LocationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTableViewController.m; sourceTree = "<group>"; };
 		DA253B301CA6E3E000080B87 /* LocationTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationTableViewController.xib; sourceTree = "<group>"; };
@@ -104,6 +107,8 @@
 			children = (
 				DAE8E8D11C9A2E8500DD34F2 /* AppDelegate.h */,
 				DAE8E8D21C9A2E8500DD34F2 /* AppDelegate.m */,
+				DA0D46DB1CB1EB8A00DCDFD5 /* MySearchResultsController.h */,
+				DA0D46DC1CB1EB8A00DCDFD5 /* MySearchResultsController.m */,
 				DABF46391CA4B7E300809874 /* PointOfInterest.h */,
 				DABF463A1CA4B7E400809874 /* PointOfInterest.m */,
 				DA253B2E1CA6E3E000080B87 /* LocationTableViewController.h */,
@@ -259,6 +264,7 @@
 				DABF463B1CA4B7E400809874 /* PointOfInterest.m in Sources */,
 				DAE8E8D01C9A2E8500DD34F2 /* main.m in Sources */,
 				DA86637F1CA4BBE000E19209 /* MapViewController.m in Sources */,
+				DA0D46DD1CB1EB8A00DCDFD5 /* MySearchResultsController.m in Sources */,
 				DA253B351CA6E5BB00080B87 /* DataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

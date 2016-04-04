@@ -18,7 +18,7 @@
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLGeocoder * geoLocation;
-@property (nonatomic, weak) IBOutlet UISearchBar *searchBar;
+//@property (nonatomic, weak) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
 
 
