@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DA0D46DD1CB1EB8A00DCDFD5 /* MySearchResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0D46DC1CB1EB8A00DCDFD5 /* MySearchResultsController.m */; };
 		DA253B311CA6E3E000080B87 /* LocationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA253B2F1CA6E3E000080B87 /* LocationTableViewController.m */; };
 		DA253B321CA6E3E000080B87 /* LocationTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA253B301CA6E3E000080B87 /* LocationTableViewController.xib */; };
 		DA253B351CA6E5BB00080B87 /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DA253B341CA6E5BB00080B87 /* DataSource.m */; };
 		DA86637F1CA4BBE000E19209 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA86637E1CA4BBE000E19209 /* MapViewController.m */; };
 		DA9D4BC21CA0D79700B33688 /* MapSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9D4BC11CA0D79700B33688 /* MapSearch.m */; };
+		DAA301CE1CB34E8D002713D7 /* ListOfSearchResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA301CD1CB34E8D002713D7 /* ListOfSearchResultsController.m */; };
+		DAA301D11CB35312002713D7 /* SearchResultsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA301D01CB35312002713D7 /* SearchResultsTableViewCell.m */; };
 		DABF463B1CA4B7E400809874 /* PointOfInterest.m in Sources */ = {isa = PBXBuildFile; fileRef = DABF463A1CA4B7E400809874 /* PointOfInterest.m */; };
 		DABF463E1CA4B7F400809874 /* POICategory.m in Sources */ = {isa = PBXBuildFile; fileRef = DABF463D1CA4B7F400809874 /* POICategory.m */; };
 		DAE8E8D01C9A2E8500DD34F2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE8E8CF1C9A2E8500DD34F2 /* main.m */; };
@@ -35,8 +36,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		DA0D46DB1CB1EB8A00DCDFD5 /* MySearchResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySearchResultsController.h; sourceTree = "<group>"; };
-		DA0D46DC1CB1EB8A00DCDFD5 /* MySearchResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySearchResultsController.m; sourceTree = "<group>"; };
 		DA253B2E1CA6E3E000080B87 /* LocationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationTableViewController.h; sourceTree = "<group>"; };
 		DA253B2F1CA6E3E000080B87 /* LocationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTableViewController.m; sourceTree = "<group>"; };
 		DA253B301CA6E3E000080B87 /* LocationTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationTableViewController.xib; sourceTree = "<group>"; };
@@ -46,6 +45,10 @@
 		DA86637E1CA4BBE000E19209 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		DA9D4BC01CA0D79700B33688 /* MapSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapSearch.h; path = ../MapSearch.h; sourceTree = "<group>"; };
 		DA9D4BC11CA0D79700B33688 /* MapSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapSearch.m; path = ../MapSearch.m; sourceTree = "<group>"; };
+		DAA301CC1CB34E8D002713D7 /* ListOfSearchResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListOfSearchResultsController.h; sourceTree = "<group>"; };
+		DAA301CD1CB34E8D002713D7 /* ListOfSearchResultsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListOfSearchResultsController.m; sourceTree = "<group>"; };
+		DAA301CF1CB35312002713D7 /* SearchResultsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsTableViewCell.h; sourceTree = "<group>"; };
+		DAA301D01CB35312002713D7 /* SearchResultsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsTableViewCell.m; sourceTree = "<group>"; };
 		DABF46391CA4B7E300809874 /* PointOfInterest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointOfInterest.h; sourceTree = "<group>"; };
 		DABF463A1CA4B7E400809874 /* PointOfInterest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PointOfInterest.m; sourceTree = "<group>"; };
 		DABF463C1CA4B7F400809874 /* POICategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POICategory.h; sourceTree = "<group>"; };
@@ -107,8 +110,10 @@
 			children = (
 				DAE8E8D11C9A2E8500DD34F2 /* AppDelegate.h */,
 				DAE8E8D21C9A2E8500DD34F2 /* AppDelegate.m */,
-				DA0D46DB1CB1EB8A00DCDFD5 /* MySearchResultsController.h */,
-				DA0D46DC1CB1EB8A00DCDFD5 /* MySearchResultsController.m */,
+				DAA301CC1CB34E8D002713D7 /* ListOfSearchResultsController.h */,
+				DAA301CD1CB34E8D002713D7 /* ListOfSearchResultsController.m */,
+				DAA301CF1CB35312002713D7 /* SearchResultsTableViewCell.h */,
+				DAA301D01CB35312002713D7 /* SearchResultsTableViewCell.m */,
 				DABF46391CA4B7E300809874 /* PointOfInterest.h */,
 				DABF463A1CA4B7E400809874 /* PointOfInterest.m */,
 				DA253B2E1CA6E3E000080B87 /* LocationTableViewController.h */,
@@ -263,8 +268,9 @@
 				DA9D4BC21CA0D79700B33688 /* MapSearch.m in Sources */,
 				DABF463B1CA4B7E400809874 /* PointOfInterest.m in Sources */,
 				DAE8E8D01C9A2E8500DD34F2 /* main.m in Sources */,
+				DAA301CE1CB34E8D002713D7 /* ListOfSearchResultsController.m in Sources */,
 				DA86637F1CA4BBE000E19209 /* MapViewController.m in Sources */,
-				DA0D46DD1CB1EB8A00DCDFD5 /* MySearchResultsController.m in Sources */,
+				DAA301D11CB35312002713D7 /* SearchResultsTableViewCell.m in Sources */,
 				DA253B351CA6E5BB00080B87 /* DataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

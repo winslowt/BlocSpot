@@ -7,8 +7,9 @@
 //
 
 #import "MapSearch.h"
+#import "ListOfSearchResultsController.h"
 
-@interface MapSearch ()
+@interface MapSearch () <UISearchResultsUpdating>
 
 @property (nonatomic, strong) MKLocalSearch *currentSearch;
 
@@ -48,6 +49,12 @@
     
 }
 
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    
+    [self searchWithTerm:searchController.searchBar.text];
+    self.delegate = (ListOfSearchResultsController *)searchController.searchResultsController;
+    
+}
 
 
 

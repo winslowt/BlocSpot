@@ -9,7 +9,7 @@
 #import "MapViewController.h"
 #import "MapSearch.h"
 #import <MapKit/MKAnnotation.h>
-#import "MySearchResultsController.h"
+#import "ListOfSearchResultsController.h"
 
 @class MKMapView;
 @class locationServicesEnabled;
@@ -26,6 +26,8 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray* allTableData;
 @property (strong, nonatomic) NSMutableArray* filteredTableData;
+//@property (nonatomic, strong) UISearchBar *searchBar;
+
 
 
 
@@ -52,15 +54,21 @@
     [self.mapView setZoomEnabled:YES];
     [self.mapView setScrollEnabled:YES];
     
-    MySearchResultsController *searchResultsController = [[MySearchResultsController alloc] init];
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:searchResultsController];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ListOfSearchResultsController *resultsController = (ListOfSearchResultsController*)[storyboard instantiateViewControllerWithIdentifier:@"ListOfSearchResultsController"];
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:resultsController];
     self.searchController.searchResultsUpdater = self;
     self.searchController.dimsBackgroundDuringPresentation = NO;
     self.searchController.searchBar.delegate = self;
-    self.tableView.tableHeaderView = self.searchController.searchBar;
+//    self.tableView.tableHeaderView = self.searchController.searchBar;
     self.definesPresentationContext = YES;
-    [self.searchController.searchBar sizeToFit];
-    // Do any additional setup after loading the view.
+    [self.mapView addSubview:self.searchController.searchBar];
+    CGRect searchBarFrame = self.searchController.searchBar.frame;
+    self.tableView.tableHeaderView =self.searchController.searchBar;
+    [self.tableView scrollRectToVisible:searchBarFrame animated:NO];
+    
+   
+
 }
 
 
@@ -119,6 +127,11 @@
     [self.mapView setRegion:[self.mapView regionThatFits:region] animated:YES];
 }
 
+- (instancetype)initWithSearchResultsController:(nullable UIViewController *)searchResultsController {
+    
+    return nil;
+    
+}
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
     
@@ -138,12 +151,7 @@
     
     
 }
-//
-//-(void)searchBar:(UISearchBar*)searchBar textDidChange:(NSString*)text {
-//  
-//    if (searchBar.text == @"") {
-//        
-//}
+
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
     self.isSearching = NO;
@@ -174,6 +182,7 @@
     
     self.resultsArray = resultsArray;
     NSLog(@"found results, %@", resultsArray);
+   
     
 }
 
