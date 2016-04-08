@@ -15,7 +15,7 @@
 @class locationServicesEnabled;
 
 
-@interface MapViewController () <UISearchControllerDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchResultsUpdating, MapSearchProtocol>
+@interface MapViewController () <UISearchControllerDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchResultsUpdating, MapSearchProtocol, ClickLocation>
 
 
 @property (nonatomic,strong) NSArray *resultsArray;
@@ -26,9 +26,6 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray* allTableData;
 @property (strong, nonatomic) NSMutableArray* filteredTableData;
-//@property (nonatomic, strong) UISearchBar *searchBar;
-
-
 
 
 @end
@@ -56,16 +53,19 @@
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ListOfSearchResultsController *resultsController = (ListOfSearchResultsController*)[storyboard instantiateViewControllerWithIdentifier:@"ListOfSearchResultsController"];
+    resultsController.delegate = self;
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:resultsController];
     self.searchController.searchResultsUpdater = self;
     self.searchController.dimsBackgroundDuringPresentation = NO;
     self.searchController.searchBar.delegate = self;
-//    self.tableView.tableHeaderView = self.searchController.searchBar;
+    self.mapSearch.delegate = (ListOfSearchResultsController*)self.searchController.searchResultsController;
     self.definesPresentationContext = YES;
-    [self.mapView addSubview:self.searchController.searchBar];
-    CGRect searchBarFrame = self.searchController.searchBar.frame;
-    self.tableView.tableHeaderView =self.searchController.searchBar;
-    [self.tableView scrollRectToVisible:searchBarFrame animated:NO];
+    [self.view addSubview:self.searchController.searchBar];
+    
+    self.searchController.searchBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 40);
+//    self.tableView.tableHeaderView =self.searchController.searchBar;
+//    [self.tableView scrollRectToVisible:searchBarFrame animated:NO];
+
     
    
 
@@ -85,6 +85,12 @@
         self.mapView.showsUserLocation = YES;
     }
     
+}
+
+-(void)selectedLocationOnMap:(MKMapItem *)mapItem {
+    
+    NSLog(@"Did select location");
+    //dismiss tableView, create a pin that you can place on the map & zoom to that item. give it a new region for the map view, zoom to region around pin
 }
 
 #pragma mark search controller delegate
@@ -152,11 +158,15 @@
     
 }
 
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+{
+    return YES;
+}
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
     self.isSearching = NO;
     [self.searchController.searchBar resignFirstResponder];
- 
+    
     
 }
 
@@ -166,8 +176,11 @@
 }
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     
+    if (searchController.searchBar.text.length < 1) return;
+    
+    
     NSString *searchString = self.searchController.searchBar.text;
-
+    
     [self.mapSearch searchWithTerm:searchString];
     [self.tableView reloadData];
 }

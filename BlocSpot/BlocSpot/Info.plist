@@ -38,7 +38,7 @@
 		<string>MKDirectionsModeCar</string>
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Let me stalk you. </string>
+	<string>Tell me where you at, where you really really at</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

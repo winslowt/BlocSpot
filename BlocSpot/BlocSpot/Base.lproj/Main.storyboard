@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -27,15 +28,22 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yRR-cd-Wo8">
-                                <rect key="frame" x="0.0" y="108" width="600" height="484"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yRR-cd-Wo8">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="yRR-cd-Wo8" secondAttribute="trailing" constant="-20" id="3GR-xg-SlJ"/>
+                            <constraint firstItem="yRR-cd-Wo8" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="k3c-62-9vQ"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="yRR-cd-Wo8" secondAttribute="bottom" id="rWE-v7-RY8"/>
+                            <constraint firstItem="yRR-cd-Wo8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="uzc-1k-5DW"/>
+                        </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="BlocSpot" id="2iL-bb-SJ2"/>
                     <connections>
                         <outlet property="mapView" destination="yRR-cd-Wo8" id="VrR-78-iuH"/>
@@ -89,6 +97,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
                         <outlet property="tableView" destination="aeK-Nn-1Px" id="UPO-Mf-qSm"/>
                     </connections>

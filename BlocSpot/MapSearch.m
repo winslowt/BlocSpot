@@ -49,12 +49,12 @@
     
 }
 
-- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    
-    [self searchWithTerm:searchController.searchBar.text];
-    self.delegate = (ListOfSearchResultsController *)searchController.searchResultsController;
-    
-}
+//- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+//    
+//    [self searchWithTerm:searchController.searchBar.text];
+//    self.delegate = (ListOfSearchResultsController *)searchController.searchResultsController;
+//    
+//}
 
 
 

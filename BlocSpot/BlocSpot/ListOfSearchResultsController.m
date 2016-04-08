@@ -10,7 +10,7 @@
 #import "SearchResultsTableViewCell.h"
 #import "MapSearch.h"
 
-@interface ListOfSearchResultsController () <UITableViewDataSource, UITableViewDelegate, MapSearchProtocol>
+@interface ListOfSearchResultsController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong)NSArray *searchResults;
 
@@ -62,6 +62,16 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     
     return NO;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(selectedLocationOnMap:)]) {
+        
+       [self.delegate selectedLocationOnMap:self.searchResults[indexPath.row]];
+    }
+    
+    
 }
 
 -(void)foundResults:(NSArray *)resultsArray {
