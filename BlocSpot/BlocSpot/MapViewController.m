@@ -13,6 +13,7 @@
 
 @class MKMapView;
 @class locationServicesEnabled;
+@class MKAnnotationView;
 
 
 @interface MapViewController () <UISearchControllerDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchResultsUpdating, MapSearchProtocol, ClickLocation>
@@ -25,8 +26,7 @@
 @property(nonatomic, getter=isEditing) BOOL isSearching;
 @property (nonatomic, strong) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray* allTableData;
-@property (strong, nonatomic) NSMutableArray* filteredTableData;
-
+@property (nonatomic, strong) MKMapItem *mapItem;
 
 @end
 
@@ -87,10 +87,39 @@
     
 }
 
--(void)selectedLocationOnMap:(MKMapItem *)mapItem {
+-(void)selectedLocationOnSearchController:(MKMapItem *)mapItem {
     
     NSLog(@"Did select location");
+   
+    [self.mapView addAnnotation:mapItem.placemark];
+    //indirectly calling MKAnnotationView method
+    
+    [self.mapView setCenterCoordinate:mapItem.placemark.coordinate];
+    
+    [self dismissSelf];
+    
     //dismiss tableView, create a pin that you can place on the map & zoom to that item. give it a new region for the map view, zoom to region around pin
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    
+    MKAnnotationView *annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"AnnotationReuseId"];
+    
+    annotationView.image = [UIImage imageNamed:@"small check"];
+    
+    UIView *fakeCalloutView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+    fakeCalloutView.backgroundColor = [UIColor whiteColor];
+    
+    annotationView.detailCalloutAccessoryView = fakeCalloutView;
+    
+    //annotationView.canShowCallout = YES;
+    
+    return annotationView;
+    
+}
+
+- (void)dismissSelf {
+    [self.searchController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark search controller delegate
@@ -184,12 +213,6 @@
     [self.mapSearch searchWithTerm:searchString];
     [self.tableView reloadData];
 }
-
-//- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
-//{
-//    [self updateSearchResultsForSearchController:self.searchController];
-//}
-
 
 -(void)foundResults:(NSArray *)resultsArray {
     

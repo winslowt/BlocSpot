@@ -66,9 +66,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(selectedLocationOnMap:)]) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(selectedLocationOnSearchController:)]) {
         
-       [self.delegate selectedLocationOnMap:self.searchResults[indexPath.row]];
+       [self.delegate selectedLocationOnSearchController:self.searchResults[indexPath.row]];
     }
     
     
