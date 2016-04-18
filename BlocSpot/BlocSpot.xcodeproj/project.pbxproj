@@ -7,8 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DA253B311CA6E3E000080B87 /* LocationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA253B2F1CA6E3E000080B87 /* LocationTableViewController.m */; };
 		DA253B321CA6E3E000080B87 /* LocationTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA253B301CA6E3E000080B87 /* LocationTableViewController.xib */; };
+		DA4345571CC0853F00DDA8DE /* PoiDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4345561CC0853F00DDA8DE /* PoiDetailController.m */; };
+		DA43455A1CC2FEAF00DDA8DE /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4345591CC2FEAF00DDA8DE /* NavigationController.m */; };
+		DA43455D1CC3004300DDA8DE /* SavedLocationsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA43455C1CC3004300DDA8DE /* SavedLocationsTableViewController.m */; };
+		DA4345601CC3041E00DDA8DE /* SavedLocationsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA43455F1CC3041E00DDA8DE /* SavedLocationsTableViewCell.m */; };
+		DA4345631CC412F800DDA8DE /* TWCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4345621CC412F800DDA8DE /* TWCoreDataStack.m */; };
+		DA4345651CC415EC00DDA8DE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA4345641CC415EC00DDA8DE /* CoreData.framework */; };
 		DA86637F1CA4BBE000E19209 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA86637E1CA4BBE000E19209 /* MapViewController.m */; };
 		DA9D4BC21CA0D79700B33688 /* MapSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = DA9D4BC11CA0D79700B33688 /* MapSearch.m */; };
 		DAA301CE1CB34E8D002713D7 /* ListOfSearchResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAA301CD1CB34E8D002713D7 /* ListOfSearchResultsController.m */; };
@@ -35,9 +40,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		DA253B2E1CA6E3E000080B87 /* LocationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationTableViewController.h; sourceTree = "<group>"; };
-		DA253B2F1CA6E3E000080B87 /* LocationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTableViewController.m; sourceTree = "<group>"; };
 		DA253B301CA6E3E000080B87 /* LocationTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationTableViewController.xib; sourceTree = "<group>"; };
+		DA4345551CC0853F00DDA8DE /* PoiDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiDetailController.h; sourceTree = "<group>"; };
+		DA4345561CC0853F00DDA8DE /* PoiDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoiDetailController.m; sourceTree = "<group>"; };
+		DA4345581CC2FEAF00DDA8DE /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
+		DA4345591CC2FEAF00DDA8DE /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
+		DA43455B1CC3004300DDA8DE /* SavedLocationsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedLocationsTableViewController.h; sourceTree = "<group>"; };
+		DA43455C1CC3004300DDA8DE /* SavedLocationsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedLocationsTableViewController.m; sourceTree = "<group>"; };
+		DA43455E1CC3041E00DDA8DE /* SavedLocationsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedLocationsTableViewCell.h; sourceTree = "<group>"; };
+		DA43455F1CC3041E00DDA8DE /* SavedLocationsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedLocationsTableViewCell.m; sourceTree = "<group>"; };
+		DA4345611CC412F800DDA8DE /* TWCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWCoreDataStack.h; sourceTree = "<group>"; };
+		DA4345621CC412F800DDA8DE /* TWCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWCoreDataStack.m; sourceTree = "<group>"; };
+		DA4345641CC415EC00DDA8DE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		DA86637D1CA4BBE000E19209 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		DA86637E1CA4BBE000E19209 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		DA9D4BC01CA0D79700B33688 /* MapSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapSearch.h; path = ../MapSearch.h; sourceTree = "<group>"; };
@@ -69,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA4345651CC415EC00DDA8DE /* CoreData.framework in Frameworks */,
 				DAE8E8F41C9A313900DD34F2 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -86,6 +101,7 @@
 		DAE8E8C21C9A2E8400DD34F2 = {
 			isa = PBXGroup;
 			children = (
+				DA4345641CC415EC00DDA8DE /* CoreData.framework */,
 				DAE8E8F31C9A313900DD34F2 /* MapKit.framework */,
 				DAE8E8CD1C9A2E8500DD34F2 /* BlocSpot */,
 				DAE8E8E71C9A2E8500DD34F2 /* BlocSpotTests */,
@@ -107,14 +123,22 @@
 			children = (
 				DAE8E8D11C9A2E8500DD34F2 /* AppDelegate.h */,
 				DAE8E8D21C9A2E8500DD34F2 /* AppDelegate.m */,
+				DA4345611CC412F800DDA8DE /* TWCoreDataStack.h */,
+				DA4345621CC412F800DDA8DE /* TWCoreDataStack.m */,
+				DA43455B1CC3004300DDA8DE /* SavedLocationsTableViewController.h */,
+				DA43455C1CC3004300DDA8DE /* SavedLocationsTableViewController.m */,
+				DA43455E1CC3041E00DDA8DE /* SavedLocationsTableViewCell.h */,
+				DA43455F1CC3041E00DDA8DE /* SavedLocationsTableViewCell.m */,
 				DAA301CC1CB34E8D002713D7 /* ListOfSearchResultsController.h */,
 				DAA301CD1CB34E8D002713D7 /* ListOfSearchResultsController.m */,
 				DAA301CF1CB35312002713D7 /* SearchResultsTableViewCell.h */,
 				DAA301D01CB35312002713D7 /* SearchResultsTableViewCell.m */,
+				DA4345551CC0853F00DDA8DE /* PoiDetailController.h */,
+				DA4345561CC0853F00DDA8DE /* PoiDetailController.m */,
+				DA4345581CC2FEAF00DDA8DE /* NavigationController.h */,
+				DA4345591CC2FEAF00DDA8DE /* NavigationController.m */,
 				DABF46391CA4B7E300809874 /* PointOfInterest.h */,
 				DABF463A1CA4B7E400809874 /* PointOfInterest.m */,
-				DA253B2E1CA6E3E000080B87 /* LocationTableViewController.h */,
-				DA253B2F1CA6E3E000080B87 /* LocationTableViewController.m */,
 				DA86637D1CA4BBE000E19209 /* MapViewController.h */,
 				DA86637E1CA4BBE000E19209 /* MapViewController.m */,
 				DABF463C1CA4B7F400809874 /* POICategory.h */,
@@ -257,15 +281,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA253B311CA6E3E000080B87 /* LocationTableViewController.m in Sources */,
 				DAE8E8D31C9A2E8500DD34F2 /* AppDelegate.m in Sources */,
 				DABF463E1CA4B7F400809874 /* POICategory.m in Sources */,
 				DA9D4BC21CA0D79700B33688 /* MapSearch.m in Sources */,
 				DABF463B1CA4B7E400809874 /* PointOfInterest.m in Sources */,
 				DAE8E8D01C9A2E8500DD34F2 /* main.m in Sources */,
+				DA4345631CC412F800DDA8DE /* TWCoreDataStack.m in Sources */,
 				DAA301CE1CB34E8D002713D7 /* ListOfSearchResultsController.m in Sources */,
+				DA4345601CC3041E00DDA8DE /* SavedLocationsTableViewCell.m in Sources */,
+				DA4345571CC0853F00DDA8DE /* PoiDetailController.m in Sources */,
+				DA43455A1CC2FEAF00DDA8DE /* NavigationController.m in Sources */,
 				DA86637F1CA4BBE000E19209 /* MapViewController.m in Sources */,
 				DAA301D11CB35312002713D7 /* SearchResultsTableViewCell.m in Sources */,
+				DA43455D1CC3004300DDA8DE /* SavedLocationsTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,10 +10,12 @@
 #import "MapSearch.h"
 #import <MapKit/MKAnnotation.h>
 #import "ListOfSearchResultsController.h"
+#import "PoiDetailController.h"
 
 @class MKMapView;
 @class locationServicesEnabled;
 @class MKAnnotationView;
+
 
 
 @interface MapViewController () <UISearchControllerDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchResultsUpdating, MapSearchProtocol, ClickLocation>
@@ -92,6 +94,8 @@
     NSLog(@"Did select location");
    
     [self.mapView addAnnotation:mapItem.placemark];
+    
+    self.mapItem = mapItem;
     //indirectly calling MKAnnotationView method
     
     [self.mapView setCenterCoordinate:mapItem.placemark.coordinate];
@@ -105,16 +109,29 @@
     
     MKAnnotationView *annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"AnnotationReuseId"];
     
-    annotationView.image = [UIImage imageNamed:@"small check"];
+    annotationView.image = [UIImage imageNamed:@"Joel's"];
     
-    UIView *fakeCalloutView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
-    fakeCalloutView.backgroundColor = [UIColor whiteColor];
+    UIButton *detailsButton = [UIButton buttonWithType:UIButtonTypeInfoDark];
     
-    annotationView.detailCalloutAccessoryView = fakeCalloutView;
+    [detailsButton addTarget:self action:@selector(openDetailButton) forControlEvents:UIControlEventTouchUpInside];
     
-    //annotationView.canShowCallout = YES;
+    annotationView.rightCalloutAccessoryView = detailsButton;
+    
+    annotationView.canShowCallout = YES;
     
     return annotationView;
+    
+}
+
+
+-(void)openDetailButton {
+    
+    PoiDetailController *detailsView = [self.storyboard instantiateViewControllerWithIdentifier:@"PoiDetailController"];
+    
+    detailsView.specialMapItem = self.mapItem;
+    [self.navigationController pushViewController:detailsView animated:YES];
+    
+  
     
 }
 

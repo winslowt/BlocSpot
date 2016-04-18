@@ -20,10 +20,23 @@
     // Override point for customization after application launch.
     [self.locationManager requestWhenInUseAuthorization];
     self.locationManager = [[CLLocationManager alloc] init];
+                            
+    [self setupAppearance];
+    
     [self.window makeKeyAndVisible];
     
     
     return YES;
+}
+
+- (void)setupAppearance {
+    
+    UINavigationBar *navigationBarAppearance = [UINavigationBar appearance];
+    navigationBarAppearance.barTintColor = [UIColor colorWithRed:84.0/155.0 green:45.0/120.0 blue:180.0/67.0 alpha:1.0f];
+    navigationBarAppearance.tintColor = [UIColor whiteColor];
+    navigationBarAppearance.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+    
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

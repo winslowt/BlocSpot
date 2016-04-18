@@ -15,7 +15,7 @@
 
 - (void)selectedLocationOnSearchController:(MKMapItem *)mapItem;
 
-//1.define protocol, create property of type in clas that wants to use delegate, implement protocol in class that wants to use it, and set that class that implements it as the delegate
+//1.define protocol, create property of type in class that wants to use delegate, implement protocol in class that wants to use it, and set that class that implements it as the delegate
 
 
 @end
