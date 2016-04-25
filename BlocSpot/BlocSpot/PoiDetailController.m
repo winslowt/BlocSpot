@@ -8,7 +8,8 @@
 
 #import "PoiDetailController.h"
 
-@interface PoiDetailController ()
+@interface PoiDetailController () <UIPopoverPresentationControllerDelegate>
+
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end

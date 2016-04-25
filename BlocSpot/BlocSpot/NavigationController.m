@@ -8,7 +8,7 @@
 
 #import "NavigationController.h"
 
-@interface NavigationController ()
+@interface NavigationController () <UINavigationControllerDelegate>
 
 @end
 
@@ -16,6 +16,13 @@
 
 -(UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
+}
+
+- (void)viewDidLoad {
+    
+    [super viewDidLoad];
+    self.navigationController.delegate = self;
+    
 }
 
 @end

@@ -12,7 +12,6 @@
 
 
 
-- (void)displayResults:(NSArray *)resultsArray;
 
 
 @end

@@ -7,7 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
 @interface PointOfInterest : NSObject
+
+
+@property (nonatomic, strong) NSString *pointOfInterest;
+@property (nonatomic) NSTimeInterval date;
+
 
 @end

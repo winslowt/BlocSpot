@@ -8,11 +8,15 @@
 
 #import "SavedLocationsTableViewController.h"
 #import "SavedLocationsTableViewCell.h"
-
+#import "TWCoreDataStack.h"
+#import "BlocSpot.h"
 
 @interface SavedLocationsTableViewController ()
 
 @property (nonatomic, strong) NSArray *placesOfInterest;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic) NSFetchRequest *placeFetchRequest;
+
 
 @end
 
@@ -20,6 +24,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.fetchedResultsController performFetch:nil];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -42,14 +48,40 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    return self.placesOfInterest.count;
+    if (self.placeFetchRequest == nil) {
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+    
+    return [sectionInfo numberOfObjects];
+      
+    } else {
+        return self.fetchedResultsController.fetchedObjects.count;
+    }
+    
+}
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
     
 }
 
-- (void)displayResults:(NSArray *)resultsArray {
+- (NSFetchRequest *)placeFetchRequest {
     
-    self.placesOfInterest = resultsArray;
-    [self.tableView reloadData];
+    if (_placeFetchRequest != nil)
+    {
+        return _placeFetchRequest;
+    }
+    
+    _placeFetchRequest = [[NSFetchRequest alloc] init];
+    TWCoreDataStack *stackedCore = [TWCoreDataStack defaultStack];
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"BlocSpot" inManagedObjectContext:stackedCore.managedObjectContext];
+    [_placeFetchRequest setEntity:entity];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pointOfInterest" ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
+    [_placeFetchRequest setSortDescriptors:sortDescriptors];
+    
+    return _placeFetchRequest;
+    
 }
 
 
@@ -61,6 +93,12 @@
 //    
     return cell;
 }
+
+- (IBAction)backToMap:(id)sender {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 
 /*

@@ -11,14 +11,20 @@
 #import <MapKit/MKAnnotation.h>
 #import "ListOfSearchResultsController.h"
 #import "PoiDetailController.h"
+#import "CallOutAnnotationView.h"
+#import "TWCoreDataStack.h"
+#import "BlocSpot.h"
+#import "PointOfInterest.h"
+
 
 @class MKMapView;
 @class locationServicesEnabled;
 @class MKAnnotationView;
+@class NSDataDetector;
 
 
 
-@interface MapViewController () <UISearchControllerDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchResultsUpdating, MapSearchProtocol, ClickLocation>
+@interface MapViewController () <UISearchControllerDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchResultsUpdating, MapSearchProtocol, ClickLocation, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate>
 
 
 @property (nonatomic,strong) NSArray *resultsArray;
@@ -69,7 +75,6 @@
 //    [self.tableView scrollRectToVisible:searchBarFrame animated:NO];
 
     
-   
 
 }
 
@@ -128,12 +133,30 @@
     
     PoiDetailController *detailsView = [self.storyboard instantiateViewControllerWithIdentifier:@"PoiDetailController"];
     
-    detailsView.specialMapItem = self.mapItem;
-    [self.navigationController pushViewController:detailsView animated:YES];
+    [detailsView willMoveToParentViewController:self];
     
-  
+    [self declarePointOfInterest];
+
+    [self.mapView addSubview:detailsView.view];
+
+    [detailsView didMoveToParentViewController:self];
+    detailsView.view.frame = CGRectMake(50, 100, 100, 75);
+    detailsView.specialMapItem = self.mapItem;
+    
+///create point of interest and pass it to POIDetailController --- NSFetched results controller in saved locations table view controller 
+}
+
+-(void)declarePointOfInterest {
+    TWCoreDataStack *coreDataStack = [TWCoreDataStack defaultStack];
+    BlocSpot *pointOfInterest = [NSEntityDescription insertNewObjectForEntityForName:@"BlocSpot" inManagedObjectContext:coreDataStack.managedObjectContext];
+    
+    pointOfInterest.date = [[NSDate date] timeIntervalSince1970];
+    [coreDataStack saveContext];
     
 }
+
+
+
 
 - (void)dismissSelf {
     [self.searchController dismissViewControllerAnimated:YES completion:nil];
