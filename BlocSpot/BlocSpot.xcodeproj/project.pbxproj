@@ -22,6 +22,7 @@
 		DABC14271CCEA31E0076F8FE /* PersistenceApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DABC14251CCEA31E0076F8FE /* PersistenceApp.xcdatamodeld */; };
 		DABC142C1CCEAB160076F8FE /* BlocSpot+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = DABC14291CCEAB160076F8FE /* BlocSpot+CoreDataProperties.m */; };
 		DABC142D1CCEAB160076F8FE /* BlocSpot.m in Sources */ = {isa = PBXBuildFile; fileRef = DABC142B1CCEAB160076F8FE /* BlocSpot.m */; };
+		DABC14301CD037420076F8FE /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DABC142F1CD037420076F8FE /* CloudKit.framework */; };
 		DABF463E1CA4B7F400809874 /* POICategory.m in Sources */ = {isa = PBXBuildFile; fileRef = DABF463D1CA4B7F400809874 /* POICategory.m */; };
 		DAE8E8D01C9A2E8500DD34F2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE8E8CF1C9A2E8500DD34F2 /* main.m */; };
 		DAE8E8D31C9A2E8500DD34F2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE8E8D21C9A2E8500DD34F2 /* AppDelegate.m */; };
@@ -70,6 +71,8 @@
 		DABC14291CCEAB160076F8FE /* BlocSpot+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BlocSpot+CoreDataProperties.m"; sourceTree = SOURCE_ROOT; };
 		DABC142A1CCEAB160076F8FE /* BlocSpot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlocSpot.h; sourceTree = SOURCE_ROOT; };
 		DABC142B1CCEAB160076F8FE /* BlocSpot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlocSpot.m; sourceTree = SOURCE_ROOT; };
+		DABC142E1CD0363A0076F8FE /* BlocSpot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BlocSpot.entitlements; sourceTree = "<group>"; };
+		DABC142F1CD037420076F8FE /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		DABF463C1CA4B7F400809874 /* POICategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POICategory.h; sourceTree = "<group>"; };
 		DABF463D1CA4B7F400809874 /* POICategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POICategory.m; sourceTree = "<group>"; };
 		DAE8E8CB1C9A2E8500DD34F2 /* BlocSpot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlocSpot.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DABC14301CD037420076F8FE /* CloudKit.framework in Frameworks */,
 				DA4345651CC415EC00DDA8DE /* CoreData.framework in Frameworks */,
 				DAE8E8F41C9A313900DD34F2 /* MapKit.framework in Frameworks */,
 			);
@@ -109,6 +113,7 @@
 		DAE8E8C21C9A2E8400DD34F2 = {
 			isa = PBXGroup;
 			children = (
+				DABC142F1CD037420076F8FE /* CloudKit.framework */,
 				DA4345641CC415EC00DDA8DE /* CoreData.framework */,
 				DAE8E8F31C9A313900DD34F2 /* MapKit.framework */,
 				DAE8E8CD1C9A2E8500DD34F2 /* BlocSpot */,
@@ -129,6 +134,7 @@
 		DAE8E8CD1C9A2E8500DD34F2 /* BlocSpot */ = {
 			isa = PBXGroup;
 			children = (
+				DABC142E1CD0363A0076F8FE /* BlocSpot.entitlements */,
 				DAE8E8D11C9A2E8500DD34F2 /* AppDelegate.h */,
 				DAE8E8D21C9A2E8500DD34F2 /* AppDelegate.m */,
 				DA4345611CC412F800DDA8DE /* TWCoreDataStack.h */,
@@ -234,11 +240,15 @@
 				TargetAttributes = {
 					DAE8E8CA1C9A2E8500DD34F2 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = SQV79M6VZF;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
 							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
 								enabled = 1;
 							};
 						};
@@ -435,6 +445,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BlocSpot/BlocSpot.entitlements;
 				INFOPLIST_FILE = BlocSpot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Bloc.BlocSpot;
@@ -446,6 +457,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BlocSpot/BlocSpot.entitlements;
 				INFOPLIST_FILE = BlocSpot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Bloc.BlocSpot;

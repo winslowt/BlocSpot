@@ -7,6 +7,7 @@
 //
 
 #import "TWCoreDataStack.h"
+#import "BlocSpot.h"
 
 @implementation TWCoreDataStack
 
@@ -25,6 +26,7 @@
     
     return defaultStack;
 }
+
 
 - (void)saveContext {
     //responsible for saving the contents of our in memory store to persistent store on disk
@@ -136,8 +138,9 @@
         
         //lazy loaded property context technique
     }
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"BlocSpot" withExtension:@"momd"];
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"PersistenceApp" withExtension:@"momd"];
     _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+     NSAssert(_managedObjectModel!= nil, @"Error initializing Managed Object Model");
     return _managedObjectModel;
 }
 
@@ -151,14 +154,14 @@
     
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"BlocNote.sqlite"];
-    //where diary is going to live
+   
     
     NSError *error = nil;
     
     [_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
                                               configuration:nil
                                                         URL:storeURL
-                                                    options:@{ NSPersistentStoreUbiquitousContentNameKey : @"iCloud.winslowt.theBlocNotes"}
+                                                    options:@{ NSPersistentStoreUbiquitousContentNameKey : @"iCloud.winslowt1.blocSpot"}
                                                       error:&error];
     
     //    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
