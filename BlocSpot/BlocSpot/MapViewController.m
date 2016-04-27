@@ -149,13 +149,16 @@
 -(void)declarePointOfInterest {
     TWCoreDataStack *coreDataStack = [TWCoreDataStack defaultStack];
     BlocSpot *pointOfInterest = [NSEntityDescription insertNewObjectForEntityForName:@"BlocSpot" inManagedObjectContext:coreDataStack.managedObjectContext];
-    
-    pointOfInterest.date = [[NSDate date] timeIntervalSince1970];
+    pointOfInterest.name = self.mapItem.name;
+    pointOfInterest.date = [NSDate date];
     [coreDataStack saveContext];
     
 }
 
-
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+    
+    
+}
 
 
 - (void)dismissSelf {

@@ -11,7 +11,7 @@
 #import "TWCoreDataStack.h"
 #import "BlocSpot.h"
 
-@interface SavedLocationsTableViewController ()
+@interface SavedLocationsTableViewController () <NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) NSArray *placesOfInterest;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
@@ -39,6 +39,22 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (NSFetchedResultsController *)fetchedResultsController {
+    if (_fetchedResultsController !=nil) {
+        return _fetchedResultsController;
+    }
+    TWCoreDataStack *coreDataStack = [TWCoreDataStack defaultStack];
+    NSFetchRequest *fetchRequest = [self placeFetchRequest];
+    
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:coreDataStack.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    
+    _fetchedResultsController.delegate = self;
+    
+    
+    
+    return _fetchedResultsController;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -60,6 +76,15 @@
 }
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellEditingStyleDelete;
+    
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    BlocSpot *entry = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    TWCoreDataStack *coreDataStack = [TWCoreDataStack defaultStack];
+    [[coreDataStack managedObjectContext] deleteObject:entry];
+    [coreDataStack saveContext];
+    
     
 }
 
@@ -87,10 +112,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SavedLocationsTableViewCell *cell =(SavedLocationsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"SavedLocationsTableViewCell" forIndexPath:indexPath];
-//    
-//    MKMapItem *item = self.searchResults[indexPath.row];
-//    cell.label.text = item.name;
-//    
+    BlocSpot *dataItem = (BlocSpot *)self.fetchedResultsController.fetchedObjects[indexPath.row];
+    //cast-this is a BlocSpot object
+    cell.locationNameLabel.text = dataItem.name;
     return cell;
 }
 
@@ -101,15 +125,6 @@
 
 
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-*/
 
 /*
 // Override to support conditional editing of the table view.

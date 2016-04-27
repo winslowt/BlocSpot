@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "TWCoreDataStack.h"
 
 @interface AppDelegate ()
 
@@ -24,7 +24,7 @@
     [self setupAppearance];
     
     [self.window makeKeyAndVisible];
-    
+    [TWCoreDataStack defaultStack];
     
     return YES;
 }

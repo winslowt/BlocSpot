@@ -150,8 +150,7 @@
         return _persistentStoreCoordinator;
     }
     
-    // Create the coordinator and store
-    
+
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"BlocNote.sqlite"];
    
@@ -161,7 +160,7 @@
     [_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
                                               configuration:nil
                                                         URL:storeURL
-                                                    options:@{ NSPersistentStoreUbiquitousContentNameKey : @"iCloud.winslowt1.blocSpot"}
+                                                    options:nil
                                                       error:&error];
     
     //    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
@@ -173,11 +172,12 @@
 }
 
 - (NSURL *)applicationDocumentsDirectory {
-    
-    NSURL *containerURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.Winslow"];
-    NSLog(@"%@", containerURL.absoluteString);
-    return containerURL;
-    
+//    
+//    NSURL *containerURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.Winslow"];
+//    NSLog(@"%@", containerURL.absoluteString);
+//    return containerURL;
+//
+    return [[[NSFileManager defaultManager]URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
 @end

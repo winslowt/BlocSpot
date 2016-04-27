@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 // Insert code here to declare functionality of your managed object subclass
 
 @property (nullable, nonatomic, retain) NSString *pointOfInterest;
-@property (nonatomic) NSTimeInterval date;
+@property (nonatomic) NSDate* date;
 @property (nullable, nonatomic, retain) NSData *image;
 @property (nullable, nonatomic, retain) NSString *name;
 

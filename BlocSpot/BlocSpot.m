@@ -19,8 +19,8 @@
 
 
 - (NSString *)sectionName {
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.date];
-    
+    NSDate *date = [NSDate date];
+    //convenience initiliazer for NSDate
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MMM yyyy"];
     

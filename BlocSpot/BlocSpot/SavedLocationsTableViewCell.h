@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SavedLocationsTableViewController.h"
 
 @interface SavedLocationsTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *locationNameLabel;
 
 @end
