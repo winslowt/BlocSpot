@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSDate* date;
 @property (nullable, nonatomic, retain) NSData *image;
 @property (nullable, nonatomic, retain) NSString *name;
-
+@property (nullable, nonatomic, retain) NSString *note;
 
 
 @end

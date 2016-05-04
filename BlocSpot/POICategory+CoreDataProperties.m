@@ -1,5 +1,5 @@
 //
-//  BlocSpot+CoreDataProperties.m
+//  POICategory+CoreDataProperties.m
 //  BlocSpot
 //
 //  Created by Tony  Winslow on 4/28/16.
@@ -9,14 +9,12 @@
 //  to delete and recreate this implementation file for your updated model.
 //
 
-#import "BlocSpot+CoreDataProperties.h"
+#import "POICategory+CoreDataProperties.h"
 
-@implementation BlocSpot (CoreDataProperties)
+@implementation POICategory (CoreDataProperties)
 
-@dynamic date;
-@dynamic image;
+@dynamic color;
 @dynamic name;
-@dynamic pointOfInterest;
-@dynamic category;
+@dynamic blocSpots;
 
 @end

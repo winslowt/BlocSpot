@@ -16,6 +16,7 @@
 @dynamic date;
 @dynamic image;
 @dynamic name;
+@dynamic note;
 
 
 - (NSString *)sectionName {

@@ -11,7 +11,6 @@
 #import <MapKit/MKAnnotation.h>
 #import "ListOfSearchResultsController.h"
 #import "PoiDetailController.h"
-#import "CallOutAnnotationView.h"
 #import "TWCoreDataStack.h"
 #import "BlocSpot.h"
 #import "PointOfInterest.h"
@@ -35,6 +34,8 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray* allTableData;
 @property (nonatomic, strong) MKMapItem *mapItem;
+
+
 
 @end
 
@@ -130,20 +131,22 @@
 
 
 -(void)openDetailButton {
-    
+
     PoiDetailController *detailsView = [self.storyboard instantiateViewControllerWithIdentifier:@"PoiDetailController"];
-    
+
+    detailsView.specialMapItem = self.mapItem;
     [detailsView willMoveToParentViewController:self];
+    [self.mapView addSubview:detailsView.view];
+    [detailsView didMoveToParentViewController:self];
+    detailsView.view.frame = CGRectMake(50, 100, 250, 250);
+    
+   
     
     [self declarePointOfInterest];
-
-    [self.mapView addSubview:detailsView.view];
-
-    [detailsView didMoveToParentViewController:self];
-    detailsView.view.frame = CGRectMake(50, 100, 100, 75);
-    detailsView.specialMapItem = self.mapItem;
     
-///create point of interest and pass it to POIDetailController --- NSFetched results controller in saved locations table view controller 
+    for (id currentAnnotation in self.mapView.annotations) {
+        [self.mapView deselectAnnotation:currentAnnotation animated:YES];
+}
 }
 
 -(void)declarePointOfInterest {
@@ -155,12 +158,11 @@
     
 }
 
+
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     
     
 }
-
-
 - (void)dismissSelf {
     [self.searchController dismissViewControllerAnimated:YES completion:nil];
 }

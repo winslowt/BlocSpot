@@ -5,8 +5,16 @@
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="pointOfInterest" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="POICategory" inverseName="blocSpots" inverseEntity="POICategory" syncable="YES"/>
+    </entity>
+    <entity name="POICategory" representedClassName="POICategory" syncable="YES">
+        <attribute name="color" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="note" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="blocSpots" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BlocSpot" inverseName="category" inverseEntity="BlocSpot" syncable="YES"/>
     </entity>
     <elements>
-        <element name="BlocSpot" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="BlocSpot" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="POICategory" positionX="-63" positionY="9" width="128" height="105"/>
     </elements>
 </model>

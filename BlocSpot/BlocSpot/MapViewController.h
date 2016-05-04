@@ -21,6 +21,6 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *SavedLocationsController;
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
 
-
+-(void)setOutsideBox:(UITapGestureRecognizer *)outsideBox;
 
 @end

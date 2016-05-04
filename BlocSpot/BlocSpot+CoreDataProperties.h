@@ -2,7 +2,7 @@
 //  BlocSpot+CoreDataProperties.h
 //  BlocSpot
 //
-//  Created by Tony  Winslow on 4/25/16.
+//  Created by Tony  Winslow on 4/28/16.
 //  Copyright © 2016 Bloc. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -15,10 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BlocSpot (CoreDataProperties)
 
-@property (nullable, nonatomic, retain) NSString *pointOfInterest;
-@property (nonatomic) NSTimeInterval date;
+@property (nullable, nonatomic, retain) NSDate *date;
 @property (nullable, nonatomic, retain) NSData *image;
 @property (nullable, nonatomic, retain) NSString *name;
+@property (nullable, nonatomic, retain) NSString *pointOfInterest;
+@property (nullable, nonatomic, retain) NSManagedObject *category;
 
 @end
 
