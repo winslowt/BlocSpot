@@ -13,6 +13,9 @@
 
 @class BlocSpot;
 
+#define BlocSpotSelected @"BlocSpotSelected"
+
+
 @interface MapViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate>
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -20,5 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *SavedLocationsController;
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) BlocSpot *itemToDisplay;
+
+
 
 @end

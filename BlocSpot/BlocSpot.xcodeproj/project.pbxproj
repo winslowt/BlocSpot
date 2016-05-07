@@ -10,6 +10,8 @@
 		DA0856BB1CD2FE0000070D6B /* BlocSpot+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0856B61CD2FE0000070D6B /* BlocSpot+CoreDataProperties.m */; };
 		DA0856BC1CD2FE0000070D6B /* POICategory+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0856B81CD2FE0000070D6B /* POICategory+CoreDataProperties.m */; };
 		DA0856BD1CD2FE0000070D6B /* POICategory.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0856BA1CD2FE0000070D6B /* POICategory.m */; };
+		DA0E3C2B1CDE81050089CDE4 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0E3C2A1CDE81050089CDE4 /* CategoryViewController.m */; };
+		DA0E3C2E1CDE85480089CDE4 /* CategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0E3C2D1CDE85480089CDE4 /* CategoryTableViewCell.m */; };
 		DA253B321CA6E3E000080B87 /* LocationTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA253B301CA6E3E000080B87 /* LocationTableViewController.xib */; };
 		DA4345571CC0853F00DDA8DE /* PoiDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4345561CC0853F00DDA8DE /* PoiDetailController.m */; };
 		DA43455A1CC2FEAF00DDA8DE /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4345591CC2FEAF00DDA8DE /* NavigationController.m */; };
@@ -50,6 +52,10 @@
 		DA0856B81CD2FE0000070D6B /* POICategory+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "POICategory+CoreDataProperties.m"; path = "../POICategory+CoreDataProperties.m"; sourceTree = "<group>"; };
 		DA0856B91CD2FE0000070D6B /* POICategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = POICategory.h; path = ../POICategory.h; sourceTree = "<group>"; };
 		DA0856BA1CD2FE0000070D6B /* POICategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = POICategory.m; path = ../POICategory.m; sourceTree = "<group>"; };
+		DA0E3C291CDE81050089CDE4 /* CategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryViewController.h; path = ../CategoryViewController.h; sourceTree = "<group>"; };
+		DA0E3C2A1CDE81050089CDE4 /* CategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CategoryViewController.m; path = ../CategoryViewController.m; sourceTree = "<group>"; };
+		DA0E3C2C1CDE85480089CDE4 /* CategoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryTableViewCell.h; sourceTree = "<group>"; };
+		DA0E3C2D1CDE85480089CDE4 /* CategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryTableViewCell.m; sourceTree = "<group>"; };
 		DA253B301CA6E3E000080B87 /* LocationTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationTableViewController.xib; sourceTree = "<group>"; };
 		DA4345551CC0853F00DDA8DE /* PoiDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiDetailController.h; sourceTree = "<group>"; };
 		DA4345561CC0853F00DDA8DE /* PoiDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoiDetailController.m; sourceTree = "<group>"; };
@@ -113,6 +119,8 @@
 		DAE8E8C21C9A2E8400DD34F2 = {
 			isa = PBXGroup;
 			children = (
+				DA0E3C2C1CDE85480089CDE4 /* CategoryTableViewCell.h */,
+				DA0E3C2D1CDE85480089CDE4 /* CategoryTableViewCell.m */,
 				DABC142F1CD037420076F8FE /* CloudKit.framework */,
 				DA4345641CC415EC00DDA8DE /* CoreData.framework */,
 				DAE8E8F31C9A313900DD34F2 /* MapKit.framework */,
@@ -148,6 +156,8 @@
 				DAA301D01CB35312002713D7 /* SearchResultsTableViewCell.m */,
 				DA4345551CC0853F00DDA8DE /* PoiDetailController.h */,
 				DA4345561CC0853F00DDA8DE /* PoiDetailController.m */,
+				DA0E3C291CDE81050089CDE4 /* CategoryViewController.h */,
+				DA0E3C2A1CDE81050089CDE4 /* CategoryViewController.m */,
 				DA0856B51CD2FE0000070D6B /* BlocSpot+CoreDataProperties.h */,
 				DA0856B61CD2FE0000070D6B /* BlocSpot+CoreDataProperties.m */,
 				DA0856B71CD2FE0000070D6B /* POICategory+CoreDataProperties.h */,
@@ -313,9 +323,11 @@
 				DA4345631CC412F800DDA8DE /* TWCoreDataStack.m in Sources */,
 				DAA301CE1CB34E8D002713D7 /* ListOfSearchResultsController.m in Sources */,
 				DA0856BD1CD2FE0000070D6B /* POICategory.m in Sources */,
+				DA0E3C2B1CDE81050089CDE4 /* CategoryViewController.m in Sources */,
 				DA4345601CC3041E00DDA8DE /* SavedLocationsTableViewCell.m in Sources */,
 				DA4345571CC0853F00DDA8DE /* PoiDetailController.m in Sources */,
 				DA43455A1CC2FEAF00DDA8DE /* NavigationController.m in Sources */,
+				DA0E3C2E1CDE85480089CDE4 /* CategoryTableViewCell.m in Sources */,
 				DA86637F1CA4BBE000E19209 /* MapViewController.m in Sources */,
 				DA0856BB1CD2FE0000070D6B /* BlocSpot+CoreDataProperties.m in Sources */,
 				DAA301D11CB35312002713D7 /* SearchResultsTableViewCell.m in Sources */,

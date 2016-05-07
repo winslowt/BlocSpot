@@ -86,8 +86,11 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     BlocSpot *dataItem = (BlocSpot *)self.fetchedResultsController.fetchedObjects[indexPath.row];
-    MapViewController *mapVC = (MapViewController *)self.presentingViewController;
-    mapVC.itemToDisplay = dataItem;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:BlocSpotSelected object:dataItem];
+    
+//    MapViewController *mapVC = (MapViewController *)self.presentingViewController.presentingViewController;
+//    mapVC.itemToDisplay = dataItem;
     [self dismissViewControllerAnimated:YES completion:nil];
     
 }

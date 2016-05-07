@@ -18,5 +18,7 @@
 @dynamic name;
 @dynamic pointOfInterest;
 @dynamic category;
+@dynamic longitude;
+@dynamic latitude;
 
 @end

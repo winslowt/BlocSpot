@@ -73,6 +73,7 @@
     self.mapSearch.delegate = (ListOfSearchResultsController*)self.searchController.searchResultsController;
     self.definesPresentationContext = YES;
     [self.view addSubview:self.searchController.searchBar];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(blocSpotted:) name:BlocSpotSelected object:nil];
     
     self.searchController.searchBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 40);
 //    self.tableView.tableHeaderView =self.searchController.searchBar;
@@ -86,16 +87,27 @@
     if (self.itemToDisplay != nil) {
        
         MKPointAnnotation *place = [MKPointAnnotation new];
-        [place setCoordinate:CLLocationCoordinate2DMake(self.itemToDisplay.latitude, self.itemToDisplay.longitude)];
-        [self.mapView addAnnotation:_itemToDisplay.];
+        [place setCoordinate:CLLocationCoordinate2DMake(self.itemToDisplay.latitude.doubleValue, self.itemToDisplay.longitude.doubleValue)];
+        [self.mapView addAnnotation:place];
         
-        self.mapItem = mapItem;
-        //indirectly calling MKAnnotationView method
-        
-        [self.mapView setCenterCoordinate:mapItem.placemark.coordinate];
+        [self.mapView setCenterCoordinate:place.coordinate];
     }
 }
 
+-(void)viewWillDisappear:(BOOL)animated {
+    
+    [super viewWillDisappear:animated];
+    
+//    [[NSNotificationCenter defaultCenter]removeObserver:self];
+    
+    self.itemToDisplay = nil;
+}
+
+-(void)blocSpotted:(NSNotification *)notification {
+    
+    BlocSpot *spot = notification.object;
+    self.itemToDisplay = spot;
+}
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     
@@ -170,6 +182,11 @@
     TWCoreDataStack *coreDataStack = [TWCoreDataStack defaultStack];
     BlocSpot *pointOfInterest = [NSEntityDescription insertNewObjectForEntityForName:@"BlocSpot" inManagedObjectContext:coreDataStack.managedObjectContext];
     pointOfInterest.name = self.mapItem.name;
+    MKPlacemark *placeMark = self.mapItem.placemark;
+    pointOfInterest.latitude = @(placeMark.coordinate.latitude);
+    //nsnumber numberwithdouble, can only have object properties not primitives, Boxing it with NSNumber
+    pointOfInterest.longitude = @(placeMark.coordinate.longitude);
+    
     pointOfInterest.date = [NSDate date];
     [coreDataStack saveContext];
     

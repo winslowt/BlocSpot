@@ -10,6 +10,9 @@
 #import "TWCoreDataStack.h"
 #import "BlocSpot.h"
 #import "POICategory.h"
+#import "CategoryViewController.h"
+#import "MapViewController.h"
+
 
 @interface PoiDetailController () <UIGestureRecognizerDelegate>
 
@@ -18,6 +21,8 @@
 @property (nonatomic, strong) UISwipeGestureRecognizer *swipeOut;
 @property (weak, nonatomic) IBOutlet UIButton *categoryName;
 @property (nonatomic, strong) NSFetchRequest *fetchRequest;
+@property (nonatomic, strong) CategoryViewController *catView;
+
 
 @end
 
@@ -41,39 +46,51 @@
 }
 - (IBAction)pickCategory:(id)sender {
     
-    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"Select Category" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    MapViewController *mapVC = (MapViewController *)self.presentingViewController;
+    self.catView = [self.storyboard instantiateViewControllerWithIdentifier:@"CategoryViewController"];
+    self.catView.view.frame = CGRectMake(50, 100, 400, 400);
+
+    [self.catView willMoveToParentViewController:mapVC];
+//    [self.mapVC addSubview:self.catView.view];
+    [self.catView didMoveToParentViewController:mapVC];
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"POICategory"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
     
-    TWCoreDataStack *defaultStack = [TWCoreDataStack defaultStack];
     
-    NSMutableArray *results = [[defaultStack.managedObjectContext executeFetchRequest:fetchRequest error:nil]mutableCopy];
-    
-    if (results.count == 0) {
-        
-        NSArray *categoryArray = [NSArray arrayWithObjects:@"Eats", @"Entertainment", @"Sweets", @"Parks", nil];
-        
-        TWCoreDataStack *coreDataStack = [TWCoreDataStack defaultStack];
-        
-        for (int i = 0; i < categoryArray.count; i++) {
-            NSString *categoryName = categoryArray[i];
-            //element at index i
-            POICategory *category = [NSEntityDescription insertNewObjectForEntityForName:@"POICategory" inManagedObjectContext:coreDataStack.managedObjectContext];
-            category.name = categoryName;
-            [results addObject:category];
-        }
-    }
-    
-    for (POICategory *category in results) {
-        
-        UIAlertAction *actionOne = [UIAlertAction actionWithTitle:category.name style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            //assign category to BlocSpot object and save BlocSpot object
-           
-        }];
-        [actionSheet addAction:actionOne];
-    }
-    [self presentViewController:actionSheet animated:YES completion:nil];
+//    
+//    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"Select Category" message:nil preferredStyle:UIAlertControllerStyleAlert];
+////    
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"POICategory"];
+//    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
+//    
+//    TWCoreDataStack *defaultStack = [TWCoreDataStack defaultStack];
+//    
+//    NSMutableArray *results = [[defaultStack.managedObjectContext executeFetchRequest:fetchRequest error:nil]mutableCopy];
+//    
+//    if (results.count == 0) {
+//        
+//        NSArray *categoryArray = [NSArray arrayWithObjects:@"Eats", @"Entertainment", @"Sweets", @"Parks", nil];
+//        
+//        TWCoreDataStack *coreDataStack = [TWCoreDataStack defaultStack];
+//        
+//        for (int i = 0; i < categoryArray.count; i++) {
+//            NSString *categoryName = categoryArray[i];
+//            //element at index i
+//            POICategory *category = [NSEntityDescription insertNewObjectForEntityForName:@"POICategory" inManagedObjectContext:coreDataStack.managedObjectContext];
+//            category.name = categoryName;
+//            [results addObject:category];
+//        }
+//    }
+//    
+//    for (POICategory *category in results) {
+//        
+//        UIAlertAction *actionOne = [UIAlertAction actionWithTitle:category.name style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//            //assign category to BlocSpot object and save BlocSpot object
+//           
+//        }];
+//        [actionSheet addAction:actionOne];
+//    }
+//    [self presentViewController:self.catView animated:YES completion:nil];
 }
 
 
