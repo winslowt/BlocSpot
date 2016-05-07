@@ -17,4 +17,6 @@
 @dynamic name;
 @dynamic blocSpots;
 
+
+
 @end

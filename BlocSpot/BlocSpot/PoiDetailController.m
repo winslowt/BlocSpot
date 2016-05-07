@@ -9,13 +9,15 @@
 #import "PoiDetailController.h"
 #import "TWCoreDataStack.h"
 #import "BlocSpot.h"
+#import "POICategory.h"
 
-@interface PoiDetailController ()
+@interface PoiDetailController () <UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (nonatomic, strong) UITapGestureRecognizer *writeNote;
 @property (weak, nonatomic) IBOutlet UITextView *mapItemNote;
-@property (nonatomic, strong) UISwipeGestureRecognizer *outsideBox;
+@property (nonatomic, strong) UISwipeGestureRecognizer *swipeOut;
+@property (weak, nonatomic) IBOutlet UIButton *categoryName;
+@property (nonatomic, strong) NSFetchRequest *fetchRequest;
 
 @end
 
@@ -23,7 +25,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.layer.cornerRadius = 15;
     //makes rounded edges of view controller
     self.view.clipsToBounds = YES;
@@ -32,39 +33,86 @@
     
     self.titleLabel.text = self.specialMapItem.name;
     
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(setWriteNote:)];
-    tapGesture.numberOfTapsRequired = 2;
+    self.view.userInteractionEnabled = YES;
     
-    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(setOutsideBox:)];
-    [self.view addGestureRecognizer:swipeGesture];
-    swipeGesture.numberOfTouchesRequired = 1;
-    swipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
-    
-    
+
+
     // Do any additional setup after loading the view.
+}
+- (IBAction)pickCategory:(id)sender {
+    
+    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"Select Category" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"POICategory"];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
+    
+    TWCoreDataStack *defaultStack = [TWCoreDataStack defaultStack];
+    
+    NSMutableArray *results = [[defaultStack.managedObjectContext executeFetchRequest:fetchRequest error:nil]mutableCopy];
+    
+    if (results.count == 0) {
+        
+        NSArray *categoryArray = [NSArray arrayWithObjects:@"Eats", @"Entertainment", @"Sweets", @"Parks", nil];
+        
+        TWCoreDataStack *coreDataStack = [TWCoreDataStack defaultStack];
+        
+        for (int i = 0; i < categoryArray.count; i++) {
+            NSString *categoryName = categoryArray[i];
+            //element at index i
+            POICategory *category = [NSEntityDescription insertNewObjectForEntityForName:@"POICategory" inManagedObjectContext:coreDataStack.managedObjectContext];
+            category.name = categoryName;
+            [results addObject:category];
+        }
+    }
+    
+    for (POICategory *category in results) {
+        
+        UIAlertAction *actionOne = [UIAlertAction actionWithTitle:category.name style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            //assign category to BlocSpot object and save BlocSpot object
+           
+        }];
+        [actionSheet addAction:actionOne];
+    }
+    [self presentViewController:actionSheet animated:YES completion:nil];
+}
+
+
+-(void)dealloc {
+    
+}
+
+
+-(void)viewWillAppear:(BOOL)animated {
+    //UI related so in viewwill appear
+    
+    self.swipeOut = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(setOutsideBox:)];
+    self.swipeOut.numberOfTouchesRequired = 1;
+
+    self.swipeOut.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:self.swipeOut];
+    self.swipeOut.delegate = self;
+    
 }
 
 -(void)setOutsideBox:(UISwipeGestureRecognizer *)outsideBox {
 
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.view removeFromSuperview];
 }
 
-
--(void)setWriteNote:(UITapGestureRecognizer *)writeNote {
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     
-    self.mapItemNote.editable = YES;
-    self.mapItemNote.userInteractionEnabled = YES;
-    
-    if (self.mapItemNote.editable == NO) {
-        
-        self.mapItemNote.dataDetectorTypes = UIDataDetectorTypeAll;
-        
-        
-    }
+    return YES;
 }
+
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    
+    return YES;
+}
+
 
 -(void)insertNoteEntry {
     TWCoreDataStack *coreDataStack = [TWCoreDataStack defaultStack];
+    
     BlocSpot *mapNote= [NSEntityDescription insertNewObjectForEntityForName:@"BlocSpot" inManagedObjectContext:coreDataStack.managedObjectContext];
     mapNote.note = self.mapItemNote.text;
     

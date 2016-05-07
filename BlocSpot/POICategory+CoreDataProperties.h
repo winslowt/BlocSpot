@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSString *name;
 @property (nullable, nonatomic, retain) NSSet<BlocSpot *> *blocSpots;
 
+
 @end
 
 @interface POICategory (CoreDataGeneratedAccessors)

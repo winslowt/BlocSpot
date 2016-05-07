@@ -34,6 +34,9 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray* allTableData;
 @property (nonatomic, strong) MKMapItem *mapItem;
+@property (nonatomic, strong) UITapGestureRecognizer *outsideBox;
+@property (nonatomic,strong) PoiDetailController *detailsView;
+
 
 
 
@@ -75,8 +78,22 @@
 //    self.tableView.tableHeaderView =self.searchController.searchBar;
 //    [self.tableView scrollRectToVisible:searchBarFrame animated:NO];
 
-    
+}
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if (self.itemToDisplay != nil) {
+       
+        MKPointAnnotation *place = [MKPointAnnotation new];
+        [place setCoordinate:CLLocationCoordinate2DMake(self.itemToDisplay.latitude, self.itemToDisplay.longitude)];
+        [self.mapView addAnnotation:_itemToDisplay.];
+        
+        self.mapItem = mapItem;
+        //indirectly calling MKAnnotationView method
+        
+        [self.mapView setCenterCoordinate:mapItem.placemark.coordinate];
+    }
 }
 
 
@@ -132,13 +149,13 @@
 
 -(void)openDetailButton {
 
-    PoiDetailController *detailsView = [self.storyboard instantiateViewControllerWithIdentifier:@"PoiDetailController"];
+    self.detailsView = [self.storyboard instantiateViewControllerWithIdentifier:@"PoiDetailController"];
 
-    detailsView.specialMapItem = self.mapItem;
-    [detailsView willMoveToParentViewController:self];
-    [self.mapView addSubview:detailsView.view];
-    [detailsView didMoveToParentViewController:self];
-    detailsView.view.frame = CGRectMake(50, 100, 250, 250);
+    self.detailsView.specialMapItem = self.mapItem;
+    [self.detailsView willMoveToParentViewController:self];
+    [self.mapView addSubview:self.detailsView.view];
+    [self.detailsView didMoveToParentViewController:self];
+    self.detailsView.view.frame = CGRectMake(50, 100, 250, 250);
     
    
     

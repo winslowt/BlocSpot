@@ -8,6 +8,7 @@
 
 #import "SavedLocationsTableViewCell.h"
 
+
 @implementation SavedLocationsTableViewCell
 
 - (void)awakeFromNib {
@@ -20,5 +21,6 @@
 
     // Configure the view for the selected state
 }
+
 
 @end

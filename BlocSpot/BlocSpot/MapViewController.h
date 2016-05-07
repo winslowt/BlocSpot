@@ -11,8 +11,7 @@
 #import <MapKit/MKAnnotation.h>
 #import <CoreLocation/CoreLocation.h>
 
-
-
+@class BlocSpot;
 
 @interface MapViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate>
 
@@ -20,7 +19,6 @@
 @property (nonatomic, strong) CLGeocoder * geoLocation;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *SavedLocationsController;
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
-
--(void)setOutsideBox:(UITapGestureRecognizer *)outsideBox;
+@property (nonatomic, strong) BlocSpot *itemToDisplay;
 
 @end

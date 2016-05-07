@@ -115,19 +115,34 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mfL-Nn-cNK">
-                                <rect key="frame" x="24" y="56" width="261" height="129"/>
+                                <rect key="frame" x="24" y="56" width="252" height="69"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" address="YES"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FKs-5B-DUX">
+                                <rect key="frame" x="16" y="245" width="100" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="FAI-7U-UMr"/>
+                                </constraints>
+                                <state key="normal" title="Category"/>
+                                <connections>
+                                    <action selector="pickCategory:" destination="P22-wT-hIs" eventType="touchUpInside" id="MVV-c8-AQq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="FKs-5B-DUX" firstAttribute="leading" secondItem="QHS-oS-dlw" secondAttribute="leadingMargin" id="6t0-dX-IlS"/>
+                            <constraint firstItem="zFF-EA-VMK" firstAttribute="top" secondItem="FKs-5B-DUX" secondAttribute="bottom" constant="25" id="s4v-nf-aAp"/>
+                        </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="300" height="300"/>
                     <connections>
+                        <outlet property="categoryName" destination="FKs-5B-DUX" id="yPC-AP-vQG"/>
                         <outlet property="mapItemNote" destination="mfL-Nn-cNK" id="YV5-lM-S8b"/>
                         <outlet property="titleLabel" destination="ojR-Mq-GIO" id="obT-Lh-GwA"/>
                     </connections>

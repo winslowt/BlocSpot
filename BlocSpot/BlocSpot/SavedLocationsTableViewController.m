@@ -10,8 +10,9 @@
 #import "SavedLocationsTableViewCell.h"
 #import "TWCoreDataStack.h"
 #import "BlocSpot.h"
+#import "MapViewController.h"
 
-@interface SavedLocationsTableViewController () <NSFetchedResultsControllerDelegate>
+@interface SavedLocationsTableViewController () <NSFetchedResultsControllerDelegate> 
 
 @property (nonatomic, strong) NSArray *placesOfInterest;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
@@ -77,6 +78,17 @@
 }
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellEditingStyleDelete;
+
+    
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    BlocSpot *dataItem = (BlocSpot *)self.fetchedResultsController.fetchedObjects[indexPath.row];
+    MapViewController *mapVC = (MapViewController *)self.presentingViewController;
+    mapVC.itemToDisplay = dataItem;
+    [self dismissViewControllerAnimated:YES completion:nil];
     
 }
 
@@ -85,7 +97,7 @@
     TWCoreDataStack *coreDataStack = [TWCoreDataStack defaultStack];
     [[coreDataStack managedObjectContext] deleteObject:entry];
     [coreDataStack saveContext];
-    
+    [tableView reloadData];
     
 }
 
