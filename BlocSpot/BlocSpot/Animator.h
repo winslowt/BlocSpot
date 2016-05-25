@@ -6,8 +6,13 @@
 //  Copyright © 2016 Bloc. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
-@interface Animator : NSObject
-
-@end
+//#import <Foundation/Foundation.h>
+//#import "MapViewController.h"
+//
+//@interface Animator : NSObject <UIViewControllerAnimatedTransitioning, UIGestureRecognizerDelegate>;
+//
+//@property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
+//
+//
+//
+//@end

@@ -40,26 +40,25 @@
     
     self.view.userInteractionEnabled = YES;
     
-
-
+   
+    
     // Do any additional setup after loading the view.
 }
 - (IBAction)pickCategory:(id)sender {
     
-    [self dismissViewControllerAnimated:YES completion:nil];
-    MapViewController *mapVC = (MapViewController *)self.presentingViewController;
     self.catView = [self.storyboard instantiateViewControllerWithIdentifier:@"CategoryViewController"];
-    self.catView.view.frame = CGRectMake(50, 100, 400, 400);
+    self.catView.placeOfInterest = self.placeOfInterest;
+    self.catView.view.frame = self.view.bounds;
+    [self.view addSubview:self.catView.view];
 
-    [self.catView willMoveToParentViewController:mapVC];
-//    [self.mapVC addSubview:self.catView.view];
-    [self.catView didMoveToParentViewController:mapVC];
+    [self.catView didMoveToParentViewController:self];
+   
+
     
-    
-    
-//    
+//
 //    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"Select Category" message:nil preferredStyle:UIAlertControllerStyleAlert];
-////    
+//  
+//   
 //    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"POICategory"];
 //    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
 //    
@@ -90,10 +89,10 @@
 //        }];
 //        [actionSheet addAction:actionOne];
 //    }
-//    [self presentViewController:self.catView animated:YES completion:nil];
+//    [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
-
+ 
 -(void)dealloc {
     
 }

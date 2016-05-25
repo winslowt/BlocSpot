@@ -8,19 +8,11 @@
 
 #import "MapViewController.h"
 #import "MapSearch.h"
-#import <MapKit/MKAnnotation.h>
 #import "ListOfSearchResultsController.h"
 #import "PoiDetailController.h"
 #import "TWCoreDataStack.h"
 #import "BlocSpot.h"
 #import "PointOfInterest.h"
-
-
-@class MKMapView;
-@class locationServicesEnabled;
-@class MKAnnotationView;
-@class NSDataDetector;
-
 
 
 @interface MapViewController () <UISearchControllerDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchResultsUpdating, MapSearchProtocol, ClickLocation, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate>
@@ -52,7 +44,7 @@
     
     self.mapSearch = [[MapSearch alloc] init];
     self.mapSearch.delegate = self;
-
+    
     self.mapView.delegate = self;
     [[self mapView] setShowsUserLocation:YES];
     [[self locationManager] setDelegate:self];
@@ -64,6 +56,7 @@
     [self.mapView setScrollEnabled:YES];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    //tell the storyboard to instantiate a view controller
     ListOfSearchResultsController *resultsController = (ListOfSearchResultsController*)[storyboard instantiateViewControllerWithIdentifier:@"ListOfSearchResultsController"];
     resultsController.delegate = self;
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:resultsController];
@@ -71,34 +64,43 @@
     self.searchController.dimsBackgroundDuringPresentation = NO;
     self.searchController.searchBar.delegate = self;
     self.mapSearch.delegate = (ListOfSearchResultsController*)self.searchController.searchResultsController;
+    //when the map search does its thing, give results to searchResultsController
     self.definesPresentationContext = YES;
     [self.view addSubview:self.searchController.searchBar];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(blocSpotted:) name:BlocSpotSelected object:nil];
     
     self.searchController.searchBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 40);
-//    self.tableView.tableHeaderView =self.searchController.searchBar;
-//    [self.tableView scrollRectToVisible:searchBarFrame animated:NO];
-
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     if (self.itemToDisplay != nil) {
-       
+        
         MKPointAnnotation *place = [MKPointAnnotation new];
-        [place setCoordinate:CLLocationCoordinate2DMake(self.itemToDisplay.latitude.doubleValue, self.itemToDisplay.longitude.doubleValue)];
+        place.title = self.itemToDisplay.name;
+        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(self.itemToDisplay.latitude.doubleValue, self.itemToDisplay.longitude.doubleValue);
+        [place setCoordinate:coordinate];
         [self.mapView addAnnotation:place];
         
+        NSDictionary *dictionary = @{};
+        MKPlacemark *placeMark = [[MKPlacemark alloc] initWithCoordinate:coordinate addressDictionary:dictionary];
+        
+        MKMapItem *item = [[MKMapItem alloc] initWithPlacemark:placeMark];
+        item.name = self.itemToDisplay.name;
+        
+        
+        self.mapItem = item;
+        
         [self.mapView setCenterCoordinate:place.coordinate];
+        
+        
     }
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     
     [super viewWillDisappear:animated];
-    
-//    [[NSNotificationCenter defaultCenter]removeObserver:self];
     
     self.itemToDisplay = nil;
 }
@@ -107,6 +109,7 @@
     
     BlocSpot *spot = notification.object;
     self.itemToDisplay = spot;
+    
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
@@ -127,7 +130,7 @@
 -(void)selectedLocationOnSearchController:(MKMapItem *)mapItem {
     
     NSLog(@"Did select location");
-   
+    
     [self.mapView addAnnotation:mapItem.placemark];
     
     self.mapItem = mapItem;
@@ -159,26 +162,28 @@
 }
 
 
+- (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
+    
+    
+}
+
 -(void)openDetailButton {
-
+    
+    BlocSpot *poi = [self declarePointOfInterest];
     self.detailsView = [self.storyboard instantiateViewControllerWithIdentifier:@"PoiDetailController"];
-
+    self.detailsView.placeOfInterest = poi;
     self.detailsView.specialMapItem = self.mapItem;
     [self.detailsView willMoveToParentViewController:self];
     [self.mapView addSubview:self.detailsView.view];
     [self.detailsView didMoveToParentViewController:self];
     self.detailsView.view.frame = CGRectMake(50, 100, 250, 250);
     
-   
-    
-    [self declarePointOfInterest];
-    
     for (id currentAnnotation in self.mapView.annotations) {
         [self.mapView deselectAnnotation:currentAnnotation animated:YES];
-}
+    }
 }
 
--(void)declarePointOfInterest {
+-(BlocSpot *)declarePointOfInterest {
     TWCoreDataStack *coreDataStack = [TWCoreDataStack defaultStack];
     BlocSpot *pointOfInterest = [NSEntityDescription insertNewObjectForEntityForName:@"BlocSpot" inManagedObjectContext:coreDataStack.managedObjectContext];
     pointOfInterest.name = self.mapItem.name;
@@ -190,6 +195,7 @@
     pointOfInterest.date = [NSDate date];
     [coreDataStack saveContext];
     
+    return pointOfInterest;
 }
 
 
@@ -252,7 +258,7 @@
     [searchBar setShowsCancelButton:YES];
     self.mapView.scrollEnabled = NO;
     self.tableView.allowsSelection = YES;
-
+    
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
@@ -297,7 +303,7 @@
     
     self.resultsArray = resultsArray;
     NSLog(@"found results, %@", resultsArray);
-   
+    
     
 }
 
@@ -309,13 +315,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CategoryTableViewCell : UITableViewCell
+@interface CategoryTableViewCell : UITableViewCell <UIGestureRecognizerDelegate>
+
+
+@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 
 @end

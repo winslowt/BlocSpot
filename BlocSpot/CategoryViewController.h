@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class BlocSpot;
+
+#define CategoryPicked @"CategoryPicked"
+
 @interface CategoryViewController : UITableViewController
+
+
+@property (nonatomic, strong) BlocSpot *placeOfInterest;
+
 
 @end

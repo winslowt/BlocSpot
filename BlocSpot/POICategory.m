@@ -9,29 +9,18 @@
 #import "POICategory.h"
 #import "BlocSpot.h"
 #import "TWCoreDataStack.h"
+#import "UIColor+String.h"
 
 @implementation POICategory
 
+-(UIColor *)color {
+    
+    return [UIColor colorFromString:self.colorString];
+}
 
-// Insert code here to add functionality to your managed object subclass
-
-//-(NSString *)categories {
-//    
-//    TWCoreDataStack *coreDataStack = [TWCoreDataStack defaultStack];
-//    POICategory *category = [NSEntityDescription insertNewObjectForEntityForName:@"POICategory" inManagedObjectContext:coreDataStack.managedObjectContext];
-//    category.name = self.name;
-//    [coreDataStack saveContext];
-//    
-//    
-//    NSString *category;
-//    NSArray *categoryArray = [NSArray arrayWithObjects:@"Eats", @"Entertainment", @"Sweets", @"Parks", nil];
-//   
-//    
-//    
-//}
-//
-//
-//}
-
+-(void)setColor:(UIColor *)color {
+    
+    self.colorString = [color toString];
+}
 
 @end

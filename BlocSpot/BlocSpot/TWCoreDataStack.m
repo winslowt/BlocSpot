@@ -8,6 +8,7 @@
 
 #import "TWCoreDataStack.h"
 #import "BlocSpot.h"
+#import "MapViewController.h"
 
 @implementation TWCoreDataStack
 
@@ -172,11 +173,8 @@
 }
 
 - (NSURL *)applicationDocumentsDirectory {
-//    
-//    NSURL *containerURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.Winslow"];
-//    NSLog(@"%@", containerURL.absoluteString);
-//    return containerURL;
-//
+  
+
     return [[[NSFileManager defaultManager]URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 

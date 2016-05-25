@@ -28,11 +28,7 @@
     
     [self.fetchedResultsController performFetch:nil];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+  
 }
 
 - (void)didReceiveMemoryWarning {
@@ -77,32 +73,45 @@
     
 }
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+
     return UITableViewCellEditingStyleDelete;
 
-    
+}
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     BlocSpot *dataItem = (BlocSpot *)self.fetchedResultsController.fetchedObjects[indexPath.row];
+    //we are telling the above item that we want it to be a blocSpot item
     
     [[NSNotificationCenter defaultCenter] postNotificationName:BlocSpotSelected object:dataItem];
     
-//    MapViewController *mapVC = (MapViewController *)self.presentingViewController.presentingViewController;
-//    mapVC.itemToDisplay = dataItem;
     [self dismissViewControllerAnimated:YES completion:nil];
+    
     
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     BlocSpot *entry = [self.fetchedResultsController objectAtIndexPath:indexPath];
     TWCoreDataStack *coreDataStack = [TWCoreDataStack defaultStack];
+    NSError *error = nil;
     [[coreDataStack managedObjectContext] deleteObject:entry];
+    [self.fetchedResultsController performFetch:&error];
+    if (error) {
+        NSLog(@"This broke");
+    }
+    [tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
     [coreDataStack saveContext];
-    [tableView reloadData];
     
-}
+    
+    }
+        
+
 
 - (NSFetchRequest *)placeFetchRequest {
     
@@ -139,51 +148,5 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
-
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

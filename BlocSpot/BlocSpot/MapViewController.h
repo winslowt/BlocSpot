@@ -7,11 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MapKit/Mapkit.h>
-#import <MapKit/MKAnnotation.h>
+#import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
 @class BlocSpot;
+
+@class MKMapView;
+@class MKAnnotationView;
+@class NSDataDetector;
+@class CLLocationManager;
+
 
 #define BlocSpotSelected @"BlocSpotSelected"
 
@@ -19,7 +24,6 @@
 @interface MapViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate>
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic, strong) CLGeocoder * geoLocation;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *SavedLocationsController;
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) BlocSpot *itemToDisplay;

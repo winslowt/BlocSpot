@@ -25,7 +25,7 @@
     }
     
     if (self.currentSearch != nil) {
-        // if there is a search ongoing
+        // if there is a search ongoing --try to search for another before search returns, cancel search in progress
         
         [self.currentSearch cancel];
         
@@ -37,7 +37,7 @@
     MKLocalSearch *search = [[MKLocalSearch alloc] initWithRequest:searchRequest];
     self.currentSearch = search;
     
-    [self.currentSearch startWithCompletionHandler:^(MKLocalSearchResponse * _Nullable response, NSError * _Nullable error) {
+    [self.currentSearch startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
         
         if (error) {
             [self.delegate errorFound:error.description];
@@ -49,12 +49,9 @@
     
 }
 
-//- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-//    
-//    [self searchWithTerm:searchController.searchBar.text];
-//    self.delegate = (ListOfSearchResultsController *)searchController.searchResultsController;
-//    
-//}
+-(void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    
+}
 
 
 

@@ -13,7 +13,7 @@
 
 @implementation POICategory (CoreDataProperties)
 
-@dynamic color;
+@dynamic colorString;
 @dynamic name;
 @dynamic blocSpots;
 

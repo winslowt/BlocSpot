@@ -17,6 +17,7 @@
 @dynamic image;
 @dynamic name;
 @dynamic note;
+@dynamic locationLock;
 
 
 - (NSString *)sectionName {
