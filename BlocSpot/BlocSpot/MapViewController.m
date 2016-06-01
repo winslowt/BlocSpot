@@ -30,8 +30,6 @@
 @property (nonatomic,strong) PoiDetailController *detailsView;
 
 
-
-
 @end
 
 @implementation MapViewController
@@ -164,23 +162,44 @@
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
     
+}
+
+-(BlocSpot *)existingMarkForCoordinates:(CLLocationCoordinate2D)coordinate {
+    
+    NSFetchRequest *fetchMarks = [[NSFetchRequest alloc] initWithEntityName:@"BlocSpot"];
+    NSError *error = nil;
+    NSArray *results =[[TWCoreDataStack defaultStack].managedObjectContext executeFetchRequest:fetchMarks error:&error];
+    if (error) {
+        NSLog(@"Existing mark didn't work");
+    }
+    for (BlocSpot *spot in results) {
+        if (spot.latitude.doubleValue == coordinate.latitude && spot.longitude.doubleValue == coordinate.longitude) {
+            return spot;
+        }
+    }
+    return nil;
     
 }
 
 -(void)openDetailButton {
     
-    BlocSpot *poi = [self declarePointOfInterest];
+    CLLocationCoordinate2D coordinates = self.mapItem.placemark.coordinate;
+    BlocSpot *spot = [self existingMarkForCoordinates:coordinates];
+    if (spot == nil) {
+        spot = [self declarePointOfInterest];
+    }
     self.detailsView = [self.storyboard instantiateViewControllerWithIdentifier:@"PoiDetailController"];
-    self.detailsView.placeOfInterest = poi;
+    self.detailsView.placeOfInterest = spot;
     self.detailsView.specialMapItem = self.mapItem;
+    self.detailsView.view.frame = CGRectMake(50, 100, 250, 250);
     [self.detailsView willMoveToParentViewController:self];
     [self.mapView addSubview:self.detailsView.view];
     [self.detailsView didMoveToParentViewController:self];
-    self.detailsView.view.frame = CGRectMake(50, 100, 250, 250);
     
     for (id currentAnnotation in self.mapView.annotations) {
         [self.mapView deselectAnnotation:currentAnnotation animated:YES];
     }
+    
 }
 
 -(BlocSpot *)declarePointOfInterest {

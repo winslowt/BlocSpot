@@ -17,7 +17,7 @@
 @interface PoiDetailController () <UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UITextView *mapItemNote;
+@property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (nonatomic, strong) UISwipeGestureRecognizer *swipeOut;
 @property (weak, nonatomic) IBOutlet UIButton *categoryName;
 @property (nonatomic, strong) NSFetchRequest *fetchRequest;
@@ -53,53 +53,15 @@
 
     [self.catView didMoveToParentViewController:self];
    
-
-    
-//
-//    UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:@"Select Category" message:nil preferredStyle:UIAlertControllerStyleAlert];
-//  
-//   
-//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"POICategory"];
-//    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
-//    
-//    TWCoreDataStack *defaultStack = [TWCoreDataStack defaultStack];
-//    
-//    NSMutableArray *results = [[defaultStack.managedObjectContext executeFetchRequest:fetchRequest error:nil]mutableCopy];
-//    
-//    if (results.count == 0) {
-//        
-//        NSArray *categoryArray = [NSArray arrayWithObjects:@"Eats", @"Entertainment", @"Sweets", @"Parks", nil];
-//        
-//        TWCoreDataStack *coreDataStack = [TWCoreDataStack defaultStack];
-//        
-//        for (int i = 0; i < categoryArray.count; i++) {
-//            NSString *categoryName = categoryArray[i];
-//            //element at index i
-//            POICategory *category = [NSEntityDescription insertNewObjectForEntityForName:@"POICategory" inManagedObjectContext:coreDataStack.managedObjectContext];
-//            category.name = categoryName;
-//            [results addObject:category];
-//        }
-//    }
-//    
-//    for (POICategory *category in results) {
-//        
-//        UIAlertAction *actionOne = [UIAlertAction actionWithTitle:category.name style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//            //assign category to BlocSpot object and save BlocSpot object
-//           
-//        }];
-//        [actionSheet addAction:actionOne];
-//    }
-//    [self presentViewController:actionSheet animated:YES completion:nil];
 }
 
  
 -(void)dealloc {
     
 }
-
-
 -(void)viewWillAppear:(BOOL)animated {
     //UI related so in viewwill appear
+    [super viewWillAppear:animated];
     
     self.swipeOut = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(setOutsideBox:)];
     self.swipeOut.numberOfTouchesRequired = 1;
@@ -107,7 +69,13 @@
     self.swipeOut.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:self.swipeOut];
     self.swipeOut.delegate = self;
+    self.textView.text = self.placeOfInterest.note;
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
     
+    [super viewWillDisappear:animated];
+    self.placeOfInterest.note = self.textView.text;
 }
 
 -(void)setOutsideBox:(UISwipeGestureRecognizer *)outsideBox {
@@ -125,15 +93,6 @@
     return YES;
 }
 
-
--(void)insertNoteEntry {
-    TWCoreDataStack *coreDataStack = [TWCoreDataStack defaultStack];
-    
-    BlocSpot *mapNote= [NSEntityDescription insertNewObjectForEntityForName:@"BlocSpot" inManagedObjectContext:coreDataStack.managedObjectContext];
-    mapNote.note = self.mapItemNote.text;
-    
-    
-}
 - (void) dismissSelf {
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }

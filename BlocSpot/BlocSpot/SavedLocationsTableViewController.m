@@ -141,6 +141,7 @@
     //cast-this is a BlocSpot object
     cell.locationNameLabel.text = dataItem.name;
     return cell;
+    //this is where you will set your BlocSpot content (images, notes)
 }
 
 - (IBAction)backToMap:(id)sender {

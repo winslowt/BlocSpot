@@ -7,6 +7,7 @@
 //
 
 #import "SavedLocationsTableViewCell.h"
+#import "BlocSpot.h"
 
 
 @implementation SavedLocationsTableViewCell
@@ -21,6 +22,8 @@
 
     // Configure the view for the selected state
 }
+
+
 
 
 @end
