@@ -112,14 +112,14 @@
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     
-    [self.locationManager requestWhenInUseAuthorization];
+    [self.locationManager requestAlwaysAuthorization];
     [self.locationManager startUpdatingLocation];
     
 }
 
 -(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     
-    if (status == kCLAuthorizationStatusAuthorizedWhenInUse) {
+    if (status == kCLAuthorizationStatusAuthorizedAlways) {
         self.mapView.showsUserLocation = YES;
     }
     
@@ -130,15 +130,10 @@
     NSLog(@"Did select location");
     
     [self.mapView addAnnotation:mapItem.placemark];
-    
     self.mapItem = mapItem;
     //indirectly calling MKAnnotationView method
-    
     [self.mapView setCenterCoordinate:mapItem.placemark.coordinate];
-    
     [self dismissSelf];
-    
-    //dismiss tableView, create a pin that you can place on the map & zoom to that item. give it a new region for the map view, zoom to region around pin
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
@@ -189,11 +184,12 @@
         spot = [self declarePointOfInterest];
     }
     self.detailsView = [self.storyboard instantiateViewControllerWithIdentifier:@"PoiDetailController"];
-    self.detailsView.placeOfInterest = spot;
-    self.detailsView.specialMapItem = self.mapItem;
     self.detailsView.view.frame = CGRectMake(50, 100, 250, 250);
+    self.detailsView.placeOfInterest = spot;
+//    self.detailsView.specialMapItem = self.mapItem;
     [self.detailsView willMoveToParentViewController:self];
     [self.mapView addSubview:self.detailsView.view];
+    
     [self.detailsView didMoveToParentViewController:self];
     
     for (id currentAnnotation in self.mapView.annotations) {

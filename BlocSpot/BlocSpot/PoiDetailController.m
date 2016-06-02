@@ -34,15 +34,12 @@
     //makes rounded edges of view controller
     self.view.clipsToBounds = YES;
     self.view.backgroundColor = [UIColor colorWithWhite:1.4 alpha:0.9];
-    //if you have rounded covers, it doesn't draw anything outside
     
-    self.titleLabel.text = self.specialMapItem.name;
+    self.titleLabel.text = self.placeOfInterest.name;
+    self.titleLabel.textColor = [UIColor blackColor];
     
     self.view.userInteractionEnabled = YES;
     
-   
-    
-    // Do any additional setup after loading the view.
 }
 - (IBAction)pickCategory:(id)sender {
     
