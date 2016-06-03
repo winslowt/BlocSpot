@@ -9,7 +9,7 @@
 #import "CategoryViewController.h"
 #import "CategoryTableViewCell.h"
 #import "TWCoreDataStack.h"
-#import "POICategory.h"
+
 #import "BlocSpot.h"
 #import "UIColor+String.h"
 
@@ -18,7 +18,7 @@
 
 @property (nonatomic, strong) NSFetchedResultsController *frcAlert;
 @property (strong, nonatomic) NSFetchRequest *fetchItBaby;
-
+@property (strong, nonatomic) NSString *stringOfCats;
 
 @end
 
@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(categoryToShow:) name:CategoryPicked object:nil];
     
 }
 
@@ -105,9 +105,9 @@
     UITableViewCell *categoryCell = [tableView dequeueReusableCellWithIdentifier:@"CategoryTableViewCellID" forIndexPath:indexPath];
     categoryCell.textLabel.textColor = [UIColor whiteColor];
     categoryCell.textLabel.textAlignment = NSTextAlignmentCenter;
-  
+    
     if (indexPath.row == self.frcAlert.fetchedObjects.count) {
-
+        
         categoryCell.textLabel.text = @"Add New Category";
         categoryCell.backgroundColor = [UIColor orangeColor];
     }
@@ -116,7 +116,6 @@
         categoryCell.textLabel.text = category.name;
         categoryCell.backgroundColor = category.color;
     }
-    
     return categoryCell;
 }
 
@@ -130,7 +129,6 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Select Category" message:@"Word" preferredStyle:UIAlertControllerStyleAlert];
         [alert addTextFieldWithConfigurationHandler:nil];
         [alert addAction:[UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
             UITextField *textField = alert.textFields.firstObject;
             [self declareCategory:textField.text color:[UIColor randomColor]];
         }]];
@@ -138,6 +136,13 @@
     } else {
         self.placeOfInterest.category = self.frcAlert.fetchedObjects[indexPath.row];
     }
+}
+
+-(void)categoryToShow:(NSNotification *)notification {
+    
+    POICategory *displayedCat = notification.object;
+    self.categoryToDisplay = displayedCat;
+    
 }
 
 -(void)declareCategory:(NSString *)name color:(UIColor*)color {

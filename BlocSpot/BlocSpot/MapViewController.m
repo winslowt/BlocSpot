@@ -186,7 +186,7 @@
     self.detailsView = [self.storyboard instantiateViewControllerWithIdentifier:@"PoiDetailController"];
     self.detailsView.view.frame = CGRectMake(50, 100, 250, 250);
     self.detailsView.placeOfInterest = spot;
-//    self.detailsView.specialMapItem = self.mapItem;
+    self.detailsView.specialMapItem = self.mapItem;
     [self.detailsView willMoveToParentViewController:self];
     [self.mapView addSubview:self.detailsView.view];
     
@@ -215,7 +215,6 @@
 
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
-    
     
 }
 - (void)dismissSelf {
@@ -277,8 +276,7 @@
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    
-    //[searchBar becomeFirstResponder];
+   
     NSLog(@"%@",searchBar.text);
     NSString *searchString = self.searchController.searchBar.text;
     

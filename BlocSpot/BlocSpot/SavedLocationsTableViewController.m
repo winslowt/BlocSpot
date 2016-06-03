@@ -12,7 +12,7 @@
 #import "BlocSpot.h"
 #import "MapViewController.h"
 
-@interface SavedLocationsTableViewController () <NSFetchedResultsControllerDelegate> 
+@interface SavedLocationsTableViewController () <NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) NSArray *placesOfInterest;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
@@ -27,15 +27,11 @@
     [super viewDidLoad];
     
     [self.fetchedResultsController performFetch:nil];
-    
-  
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 - (NSFetchedResultsController *)fetchedResultsController {
     if (_fetchedResultsController !=nil) {
         return _fetchedResultsController;
@@ -47,8 +43,6 @@
     
     _fetchedResultsController.delegate = self;
     
-    
-    
     return _fetchedResultsController;
 }
 
@@ -56,27 +50,25 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
+    
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
-    if (self.placeFetchRequest == nil) {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
     
-    return [sectionInfo numberOfObjects];
-      
+    if (self.placeFetchRequest == nil) {
+        id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+        
+        return [sectionInfo numberOfObjects];
+        
     } else {
         return self.fetchedResultsController.fetchedObjects.count;
     }
     
 }
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-
     return UITableViewCellEditingStyleDelete;
-
+    
 }
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -92,8 +84,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:BlocSpotSelected object:dataItem];
     
     [self dismissViewControllerAnimated:YES completion:nil];
-    
-    
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -109,8 +99,8 @@
     [coreDataStack saveContext];
     
     
-    }
-        
+}
+
 
 
 - (NSFetchRequest *)placeFetchRequest {
@@ -119,22 +109,16 @@
     {
         return _placeFetchRequest;
     }
-    
     _placeFetchRequest = [[NSFetchRequest alloc] init];
     TWCoreDataStack *stackedCore = [TWCoreDataStack defaultStack];
-    
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"BlocSpot" inManagedObjectContext:stackedCore.managedObjectContext];
     [_placeFetchRequest setEntity:entity];
-    
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pointOfInterest" ascending:YES];
     NSArray *sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
     [_placeFetchRequest setSortDescriptors:sortDescriptors];
-    
     return _placeFetchRequest;
     
 }
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SavedLocationsTableViewCell *cell =(SavedLocationsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"SavedLocationsTableViewCell" forIndexPath:indexPath];
     BlocSpot *dataItem = (BlocSpot *)self.fetchedResultsController.fetchedObjects[indexPath.row];

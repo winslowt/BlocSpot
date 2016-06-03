@@ -13,6 +13,7 @@
 #import "CategoryViewController.h"
 #import "MapViewController.h"
 
+@class CategoryViewController;
 
 @interface PoiDetailController () <UIGestureRecognizerDelegate>
 
@@ -30,17 +31,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.layer.cornerRadius = 15;
+    self.view.layer.cornerRadius = 25;
     //makes rounded edges of view controller
     self.view.clipsToBounds = YES;
     self.view.backgroundColor = [UIColor colorWithWhite:1.4 alpha:0.9];
     
-    self.titleLabel.text = self.placeOfInterest.name;
-    self.titleLabel.textColor = [UIColor blackColor];
-    
     self.view.userInteractionEnabled = YES;
     
 }
+
 - (IBAction)pickCategory:(id)sender {
     
     self.catView = [self.storyboard instantiateViewControllerWithIdentifier:@"CategoryViewController"];
@@ -49,10 +48,12 @@
     [self.view addSubview:self.catView.view];
 
     [self.catView didMoveToParentViewController:self];
-   
 }
 
- 
+-(void)displayCategoryName {
+    self.categoryName.titleLabel.text = 
+}
+
 -(void)dealloc {
     
 }
@@ -60,6 +61,8 @@
     //UI related so in viewwill appear
     [super viewWillAppear:animated];
     
+    self.titleLabel.text = self.specialMapItem.name;
+    self.titleLabel.textColor = [UIColor blackColor];
     self.swipeOut = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(setOutsideBox:)];
     self.swipeOut.numberOfTouchesRequired = 1;
 
@@ -102,18 +105,4 @@
 - (IBAction)backItUp:(id)sender {
     [self dismissSelf];
 }
-
-    
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end
