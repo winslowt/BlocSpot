@@ -10,7 +10,8 @@
 #import "POICategory.h"
 
 @class BlocSpot;
-#define CategoryPicked @"CategoryPicked"
+
+#define DismissedCategory @"DismissedCategory"
 
 @interface CategoryViewController : UITableViewController
 

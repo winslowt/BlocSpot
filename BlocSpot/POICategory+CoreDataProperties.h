@@ -2,7 +2,7 @@
 //  POICategory+CoreDataProperties.h
 //  BlocSpot
 //
-//  Created by Tony  Winslow on 4/28/16.
+//  Created by Tony  Winslow on 6/2/16.
 //  Copyright © 2016 Bloc. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -16,9 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface POICategory (CoreDataProperties)
 
 @property (nullable, nonatomic, retain) NSString *colorString;
+@property (nullable, nonatomic, retain) NSData *logo;
 @property (nullable, nonatomic, retain) NSString *name;
 @property (nullable, nonatomic, retain) NSSet<BlocSpot *> *blocSpots;
-
 
 @end
 

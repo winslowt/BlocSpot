@@ -2,7 +2,7 @@
 //  BlocSpot+CoreDataProperties.m
 //  BlocSpot
 //
-//  Created by Tony  Winslow on 4/28/16.
+//  Created by Tony  Winslow on 6/2/16.
 //  Copyright © 2016 Bloc. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -15,10 +15,11 @@
 
 @dynamic date;
 @dynamic image;
+@dynamic latitude;
+@dynamic longitude;
 @dynamic name;
+@dynamic note;
 @dynamic pointOfInterest;
 @dynamic category;
-@dynamic longitude;
-@dynamic latitude;
 
 @end

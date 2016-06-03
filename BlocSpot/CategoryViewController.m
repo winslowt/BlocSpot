@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(categoryToShow:) name:CategoryPicked object:nil];
+  
     
 }
 
@@ -42,6 +42,7 @@
     }
     
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -135,6 +136,7 @@
         [self presentViewController:alert animated:YES completion:nil];
     } else {
         self.placeOfInterest.category = self.frcAlert.fetchedObjects[indexPath.row];
+        [[NSNotificationCenter defaultCenter] postNotificationName:DismissedCategory object:nil];
     }
 }
 

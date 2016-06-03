@@ -25,7 +25,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self.fetchedResultsController performFetch:nil];
 }
 - (void)didReceiveMemoryWarning {
@@ -97,11 +96,7 @@
     }
     [tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
     [coreDataStack saveContext];
-    
-    
 }
-
-
 
 - (NSFetchRequest *)placeFetchRequest {
     
@@ -126,6 +121,7 @@
     cell.locationNameLabel.text = dataItem.name;
     return cell;
     //this is where you will set your BlocSpot content (images, notes)
+    
 }
 
 - (IBAction)backToMap:(id)sender {

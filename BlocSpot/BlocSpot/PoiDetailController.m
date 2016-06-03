@@ -35,9 +35,14 @@
     //makes rounded edges of view controller
     self.view.clipsToBounds = YES;
     self.view.backgroundColor = [UIColor colorWithWhite:1.4 alpha:0.9];
-    
     self.view.userInteractionEnabled = YES;
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(dismissCategory:) name:DismissedCategory object:nil];
     
+}
+-(void)dismissCategory:(NSNotification *)notification {
+    [self.catView.view removeFromSuperview];
+    self.catView = nil;
+    [self updateView];
 }
 
 - (IBAction)pickCategory:(id)sender {
@@ -46,12 +51,28 @@
     self.catView.placeOfInterest = self.placeOfInterest;
     self.catView.view.frame = self.view.bounds;
     [self.view addSubview:self.catView.view];
-
+    
     [self.catView didMoveToParentViewController:self];
 }
 
--(void)displayCategoryName {
-    self.categoryName.titleLabel.text = 
+-(void)updateView {
+    
+    self.titleLabel.text = self.specialMapItem.name;
+    self.titleLabel.textColor = [UIColor blackColor];
+    self.swipeOut = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(setOutsideBox:)];
+    self.swipeOut.numberOfTouchesRequired = 1;
+    
+    self.swipeOut.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:self.swipeOut];
+    self.swipeOut.delegate = self;
+    self.textView.text = self.placeOfInterest.note;
+    if (self.placeOfInterest.category) {
+        [self.categoryName setTitle:self.placeOfInterest.category.name forState:UIControlStateNormal];
+        [self.categoryName setBackgroundColor:self.placeOfInterest.category.color];
+    }
+    else {
+        [self.categoryName setTitle:@"Category" forState:UIControlStateNormal];
+    }
 }
 
 -(void)dealloc {
@@ -60,16 +81,8 @@
 -(void)viewWillAppear:(BOOL)animated {
     //UI related so in viewwill appear
     [super viewWillAppear:animated];
+    [self updateView];
     
-    self.titleLabel.text = self.specialMapItem.name;
-    self.titleLabel.textColor = [UIColor blackColor];
-    self.swipeOut = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(setOutsideBox:)];
-    self.swipeOut.numberOfTouchesRequired = 1;
-
-    self.swipeOut.direction = UISwipeGestureRecognizerDirectionRight;
-    [self.view addGestureRecognizer:self.swipeOut];
-    self.swipeOut.delegate = self;
-    self.textView.text = self.placeOfInterest.note;
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -79,7 +92,7 @@
 }
 
 -(void)setOutsideBox:(UISwipeGestureRecognizer *)outsideBox {
-
+    
     [self.view removeFromSuperview];
 }
 
