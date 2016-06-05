@@ -88,7 +88,10 @@
 -(void)viewWillDisappear:(BOOL)animated {
     
     [super viewWillDisappear:animated];
+    TWCoreDataStack *noteStack = [TWCoreDataStack defaultStack];
+    self.placeOfInterest = [NSEntityDescription insertNewObjectForEntityForName:@"BlocSpot" inManagedObjectContext:noteStack.managedObjectContext];
     self.placeOfInterest.note = self.textView.text;
+    [noteStack.managedObjectContext save:nil];
 }
 
 -(void)setOutsideBox:(UISwipeGestureRecognizer *)outsideBox {

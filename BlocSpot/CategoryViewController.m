@@ -37,7 +37,7 @@
     if (self.frcAlert.fetchedObjects.count == 0) {
         [self declareCategory:@"Restaurants" color:[UIColor blueColor]];
         [self declareCategory:@"Sporting and Entertainment" color:[UIColor redColor]];
-        [self declareCategory:@"Taverns" color:[UIColor greenColor]];
+        [self declareCategory:@"Parks" color:[UIColor greenColor]];
         [self declareCategory:@"Shopping" color:[UIColor purpleColor]];
     }
     

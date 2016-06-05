@@ -19,6 +19,7 @@
 @property (strong, nonatomic) NSFetchRequest *placeFetchRequest;
 
 
+
 @end
 
 @implementation SavedLocationsTableViewController
@@ -118,7 +119,9 @@
     SavedLocationsTableViewCell *cell =(SavedLocationsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"SavedLocationsTableViewCell" forIndexPath:indexPath];
     BlocSpot *dataItem = (BlocSpot *)self.fetchedResultsController.fetchedObjects[indexPath.row];
     //cast-this is a BlocSpot object
+    tableView.rowHeight = 75;
     cell.locationNameLabel.text = dataItem.name;
+    cell.sameTextView.text = dataItem.note;
     return cell;
     //this is where you will set your BlocSpot content (images, notes)
     
@@ -128,6 +131,8 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+//// pick a button that will filter by category & update query
 
 
 @end

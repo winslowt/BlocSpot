@@ -12,5 +12,7 @@
 
 @interface SavedLocationsTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *locationNameLabel;
+@property (weak, nonatomic) IBOutlet UITextView *sameTextView;
+
 
 @end
