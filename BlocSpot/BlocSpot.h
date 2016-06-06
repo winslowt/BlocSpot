@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import <MapKit/MapKit.h>
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,8 +24,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSString *note;
 @property (nonatomic, retain) NSString *locationLock;
 
++(BlocSpot *)existingMarkForCoordinates:(CLLocationCoordinate2D)coordinate;
+
+
 @end
 
 NS_ASSUME_NONNULL_END
 
-#import "BlocSpot+CoreDataProperties.h"
+
+
+

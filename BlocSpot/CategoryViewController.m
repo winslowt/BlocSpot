@@ -9,7 +9,7 @@
 #import "CategoryViewController.h"
 #import "CategoryTableViewCell.h"
 #import "TWCoreDataStack.h"
-
+#import "BlocSpot+CoreDataProperties.h"
 #import "BlocSpot.h"
 #import "UIColor+String.h"
 
@@ -35,10 +35,10 @@
     [[self fetchedResultsController] performFetch:nil];
     
     if (self.frcAlert.fetchedObjects.count == 0) {
-        [self declareCategory:@"Restaurants" color:[UIColor blueColor]];
-        [self declareCategory:@"Sporting and Entertainment" color:[UIColor redColor]];
-        [self declareCategory:@"Parks" color:[UIColor greenColor]];
-        [self declareCategory:@"Shopping" color:[UIColor purpleColor]];
+        [self declareCategory:@"Restaurants" color:[UIColor blueColor]image:[UIImage imageNamed:@"restaurant symbol"]];
+        [self declareCategory:@"Sporting and Entertainment" color:[UIColor redColor]image:[UIImage imageNamed:@"we know sports"]];
+        [self declareCategory:@"Parks" color:[UIColor greenColor]image:[UIImage imageNamed:@"parks"]];
+        [self declareCategory:@"Shopping" color:[UIColor purpleColor]image:[UIImage imageNamed:@"shop"]];
     }
     
 }
@@ -131,7 +131,7 @@
         [alert addTextFieldWithConfigurationHandler:nil];
         [alert addAction:[UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             UITextField *textField = alert.textFields.firstObject;
-            [self declareCategory:textField.text color:[UIColor randomColor]];
+            [self declareCategory:textField.text color:[UIColor randomColor] image:nil];
         }]];
         [self presentViewController:alert animated:YES completion:nil];
     } else {
@@ -147,11 +147,12 @@
     
 }
 
--(void)declareCategory:(NSString *)name color:(UIColor*)color {
+-(void)declareCategory:(NSString *)name color:(UIColor*)color image:(UIImage*)catImage {
     TWCoreDataStack *catStack = [TWCoreDataStack defaultStack];
     POICategory *category = [NSEntityDescription insertNewObjectForEntityForName:@"POICategory" inManagedObjectContext:catStack.managedObjectContext];
     category.name = name;
     category.color = color;
+    category.logo = catImage;
     [catStack.managedObjectContext save:nil];
     
 }

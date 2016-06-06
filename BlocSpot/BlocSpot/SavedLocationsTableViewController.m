@@ -11,6 +11,7 @@
 #import "TWCoreDataStack.h"
 #import "BlocSpot.h"
 #import "MapViewController.h"
+#import "POICategory.h"
 
 @interface SavedLocationsTableViewController () <NSFetchedResultsControllerDelegate>
 
@@ -118,10 +119,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SavedLocationsTableViewCell *cell =(SavedLocationsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"SavedLocationsTableViewCell" forIndexPath:indexPath];
     BlocSpot *dataItem = (BlocSpot *)self.fetchedResultsController.fetchedObjects[indexPath.row];
+    POICategory *imageCategory = (POICategory *)self.fetchedResultsController.fetchedObjects[indexPath.row];
     //cast-this is a BlocSpot object
-    tableView.rowHeight = 75;
+    tableView.rowHeight = 87;
     cell.locationNameLabel.text = dataItem.name;
     cell.sameTextView.text = dataItem.note;
+    cell.imageView.image = imageCategory.logo;
     return cell;
     //this is where you will set your BlocSpot content (images, notes)
     

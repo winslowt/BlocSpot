@@ -12,6 +12,7 @@
 #import "POICategory.h"
 #import "CategoryViewController.h"
 #import "MapViewController.h"
+#import "BlocSpot+CoreDataProperties.h"
 
 @class CategoryViewController;
 
@@ -76,22 +77,20 @@
 }
 
 -(void)dealloc {
-    
 }
 -(void)viewWillAppear:(BOOL)animated {
     //UI related so in viewwill appear
     [super viewWillAppear:animated];
     [self updateView];
+    self.textView.text = self.placeOfInterest.note;
     
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     
     [super viewWillDisappear:animated];
-    TWCoreDataStack *noteStack = [TWCoreDataStack defaultStack];
-    self.placeOfInterest = [NSEntityDescription insertNewObjectForEntityForName:@"BlocSpot" inManagedObjectContext:noteStack.managedObjectContext];
     self.placeOfInterest.note = self.textView.text;
-    [noteStack.managedObjectContext save:nil];
+    [[TWCoreDataStack defaultStack]saveContext];
 }
 
 -(void)setOutsideBox:(UISwipeGestureRecognizer *)outsideBox {

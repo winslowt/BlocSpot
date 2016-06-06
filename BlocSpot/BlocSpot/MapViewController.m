@@ -13,6 +13,7 @@
 #import "TWCoreDataStack.h"
 #import "BlocSpot.h"
 #import "PointOfInterest.h"
+#import "BlocSpot+CoreDataProperties.h"
 
 
 @interface MapViewController () <UISearchControllerDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchResultsUpdating, MapSearchProtocol, ClickLocation, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate>
@@ -86,13 +87,8 @@
         
         MKMapItem *item = [[MKMapItem alloc] initWithPlacemark:placeMark];
         item.name = self.itemToDisplay.name;
-        
-        
         self.mapItem = item;
-        
         [self.mapView setCenterCoordinate:place.coordinate];
-        
-        
     }
 }
 
@@ -159,27 +155,12 @@
     
 }
 
--(BlocSpot *)existingMarkForCoordinates:(CLLocationCoordinate2D)coordinate {
-    
-    NSFetchRequest *fetchMarks = [[NSFetchRequest alloc] initWithEntityName:@"BlocSpot"];
-    NSError *error = nil;
-    NSArray *results =[[TWCoreDataStack defaultStack].managedObjectContext executeFetchRequest:fetchMarks error:&error];
-    if (error) {
-        NSLog(@"Existing mark didn't work");
-    }
-    for (BlocSpot *spot in results) {
-        if (spot.latitude.doubleValue == coordinate.latitude && spot.longitude.doubleValue == coordinate.longitude) {
-            return spot;
-        }
-    }
-    return nil;
-    
-}
+
 
 -(void)openDetailButton {
     
     CLLocationCoordinate2D coordinates = self.mapItem.placemark.coordinate;
-    BlocSpot *spot = [self existingMarkForCoordinates:coordinates];
+    BlocSpot *spot = [BlocSpot existingMarkForCoordinates:coordinates];
     if (spot == nil) {
         spot = [self declarePointOfInterest];
     }

@@ -13,6 +13,8 @@
 
 @implementation POICategory
 
+@synthesize logo;
+
 -(UIColor *)color {
     
     return [UIColor colorFromString:self.colorString];
@@ -21,6 +23,11 @@
 -(void)setColor:(UIColor *)color {
     
     self.colorString = [color toString];
+}
+
+- (void)setLogo:(UIImage *)logo {
+    
+//    self.logo = [UIImage imageNamed:logo];
 }
 
 @end
