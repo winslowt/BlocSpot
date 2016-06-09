@@ -13,7 +13,6 @@
 		DA0856BD1CD2FE0000070D6B /* POICategory.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0856BA1CD2FE0000070D6B /* POICategory.m */; };
 		DA0E3C2B1CDE81050089CDE4 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0E3C2A1CDE81050089CDE4 /* CategoryViewController.m */; };
 		DA0E3C2E1CDE85480089CDE4 /* CategoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0E3C2D1CDE85480089CDE4 /* CategoryTableViewCell.m */; };
-		DA0E3C311CDFBC200089CDE4 /* Animator.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0E3C301CDFBC200089CDE4 /* Animator.m */; };
 		DA253B321CA6E3E000080B87 /* LocationTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA253B301CA6E3E000080B87 /* LocationTableViewController.xib */; };
 		DA4345571CC0853F00DDA8DE /* PoiDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4345561CC0853F00DDA8DE /* PoiDetailController.m */; };
 		DA43455A1CC2FEAF00DDA8DE /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4345591CC2FEAF00DDA8DE /* NavigationController.m */; };
@@ -60,8 +59,6 @@
 		DA0E3C2A1CDE81050089CDE4 /* CategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CategoryViewController.m; path = ../CategoryViewController.m; sourceTree = "<group>"; };
 		DA0E3C2C1CDE85480089CDE4 /* CategoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryTableViewCell.h; path = ../CategoryTableViewCell.h; sourceTree = "<group>"; };
 		DA0E3C2D1CDE85480089CDE4 /* CategoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CategoryTableViewCell.m; path = ../CategoryTableViewCell.m; sourceTree = "<group>"; };
-		DA0E3C2F1CDFBC200089CDE4 /* Animator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animator.h; sourceTree = "<group>"; };
-		DA0E3C301CDFBC200089CDE4 /* Animator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Animator.m; sourceTree = "<group>"; };
 		DA253B301CA6E3E000080B87 /* LocationTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LocationTableViewController.xib; sourceTree = "<group>"; };
 		DA4345551CC0853F00DDA8DE /* PoiDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PoiDetailController.h; sourceTree = "<group>"; };
 		DA4345561CC0853F00DDA8DE /* PoiDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoiDetailController.m; sourceTree = "<group>"; };
@@ -184,8 +181,6 @@
 				DA0856BA1CD2FE0000070D6B /* POICategory.m */,
 				DA0856B51CD2FE0000070D6B /* BlocSpot+CoreDataProperties.h */,
 				DA0856B61CD2FE0000070D6B /* BlocSpot+CoreDataProperties.m */,
-				DA0E3C2F1CDFBC200089CDE4 /* Animator.h */,
-				DA0E3C301CDFBC200089CDE4 /* Animator.m */,
 				DABC142A1CCEAB160076F8FE /* BlocSpot.h */,
 				DABC142B1CCEAB160076F8FE /* BlocSpot.m */,
 				DA9D4BC01CA0D79700B33688 /* MapSearch.h */,
@@ -339,7 +334,6 @@
 				DA9D4BC21CA0D79700B33688 /* MapSearch.m in Sources */,
 				DABC14271CCEA31E0076F8FE /* PersistenceApp.xcdatamodeld in Sources */,
 				DAE8E8D01C9A2E8500DD34F2 /* main.m in Sources */,
-				DA0E3C311CDFBC200089CDE4 /* Animator.m in Sources */,
 				DA4345631CC412F800DDA8DE /* TWCoreDataStack.m in Sources */,
 				DAA301CE1CB34E8D002713D7 /* ListOfSearchResultsController.m in Sources */,
 				DA0856BD1CD2FE0000070D6B /* POICategory.m in Sources */,

@@ -25,9 +25,24 @@
     self.colorString = [color toString];
 }
 
-- (void)setLogo:(UIImage *)logo {
-    
-//    self.logo = [UIImage imageNamed:logo];
+- (void)setLogo:(UIImage *)aLogo {
+    if (aLogo == nil) {
+        self.logoData = nil;
+    }
+    else {
+        self.logoData = UIImagePNGRepresentation(aLogo);
+    }
 }
+
+- (UIImage *)logoGo
+{
+    if (self.logoData == nil) {
+        return nil;
+    }
+    else {
+        return [UIImage imageWithData:self.logoData];
+    }
+}
+
 
 @end

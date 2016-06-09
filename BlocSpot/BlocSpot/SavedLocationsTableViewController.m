@@ -12,14 +12,14 @@
 #import "BlocSpot.h"
 #import "MapViewController.h"
 #import "POICategory.h"
-
+#import "BlocSpot+CoreDataProperties.h"
 @interface SavedLocationsTableViewController () <NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) NSArray *placesOfInterest;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSFetchRequest *placeFetchRequest;
-
-
+@property (nonatomic) BOOL isFiltering;
+@property (nonatomic, strong) NSArray *filteredSpots;
 
 @end
 
@@ -27,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.fetchedResultsController performFetch:nil];
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -47,6 +47,12 @@
     return _fetchedResultsController;
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.isFiltering = NO;
+    [self.fetchedResultsController performFetch:nil];
+}
+
 
 #pragma mark - Table view data source
 
@@ -57,6 +63,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
+    if (self.isFiltering) {
+        return self.filteredSpots.count;
+    }
     if (self.placeFetchRequest == nil) {
         id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
         
@@ -119,7 +128,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SavedLocationsTableViewCell *cell =(SavedLocationsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"SavedLocationsTableViewCell" forIndexPath:indexPath];
     BlocSpot *dataItem = (BlocSpot *)self.fetchedResultsController.fetchedObjects[indexPath.row];
-    POICategory *imageCategory = (POICategory *)self.fetchedResultsController.fetchedObjects[indexPath.row];
+    POICategory *imageCategory = dataItem.category;
     //cast-this is a BlocSpot object
     tableView.rowHeight = 87;
     cell.locationNameLabel.text = dataItem.name;
@@ -133,6 +142,33 @@
 - (IBAction)backToMap:(id)sender {
     
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+- (IBAction)filterCategories:(id)sender {
+    
+    NSError *error = nil;
+    NSFetchRequest *categoryFetch = [NSFetchRequest fetchRequestWithEntityName:@"POICategory"];
+    NSArray *fetchedCategories = [[TWCoreDataStack defaultStack].managedObjectContext executeFetchRequest:categoryFetch error:&error];
+    UIAlertController *categoryPicker = [UIAlertController alertControllerWithTitle:@"Pick Category" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    for (POICategory *category in fetchedCategories) {
+        UIAlertAction *catCall = [UIAlertAction actionWithTitle:category.name style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            [self userPickedCategory:category];
+            [categoryPicker dismissViewControllerAnimated:YES completion:nil];
+        }];
+        
+        [categoryPicker addAction:catCall];
+    }
+    [self presentViewController:categoryPicker animated:YES completion:nil];
+}
+
+- (void)userPickedCategory:(POICategory *)category
+{
+    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(BlocSpot *evaluatedObject, NSDictionary<NSString *,id> * bindings) {
+        return evaluatedObject.category == category;  //this gets called on each object in the array
+    }];
+    self.filteredSpots = [self.fetchedResultsController.fetchedObjects filteredArrayUsingPredicate:predicate];
+    self.isFiltering = YES;
+    [self.tableView reloadData];
 }
 
 //// pick a button that will filter by category & update query

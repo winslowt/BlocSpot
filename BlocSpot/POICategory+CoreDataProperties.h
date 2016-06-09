@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface POICategory (CoreDataProperties)
 
 @property (nullable, nonatomic, retain) NSString *colorString;
-@property (nullable, nonatomic, retain) NSData *logo;
+@property (nullable, nonatomic, retain) NSData *logoData;
 @property (nullable, nonatomic, retain) NSString *name;
 @property (nullable, nonatomic, retain) NSSet<BlocSpot *> *blocSpots;
 
