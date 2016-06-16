@@ -55,6 +55,12 @@
     
     [self.catView didMoveToParentViewController:self];
 }
+- (IBAction)takeMeThere:(id)sender {
+    
+    [self.specialMapItem openInMapsWithLaunchOptions:@{MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeDriving}];
+                                                        
+    
+}
 
 -(void)updateView {
     

@@ -35,10 +35,10 @@
     [[self fetchedResultsController] performFetch:nil];
     
     if (self.frcAlert.fetchedObjects.count == 0) {
-        [self declareCategory:@"Restaurants" color:[UIColor blueColor]image:[UIImage imageNamed:@"restaurant symbol"]];
-        [self declareCategory:@"Sporting and Entertainment" color:[UIColor redColor]image:[UIImage imageNamed:@"we know sports"]];
-        [self declareCategory:@"Parks" color:[UIColor greenColor]image:[UIImage imageNamed:@"parks"]];
-        [self declareCategory:@"Shopping" color:[UIColor purpleColor]image:[UIImage imageNamed:@"shop"]];
+        [self declareCategory:@"Restaurants" color:[UIColor blueColor]image:[UIImage imageNamed:@"fork"]];
+        [self declareCategory:@"Sporting and Entertainment" color:[UIColor redColor]image:[UIImage imageNamed:@"basketball"]];
+        [self declareCategory:@"Parks" color:[UIColor greenColor]image:[UIImage imageNamed:@"playground"]];
+        [self declareCategory:@"Shopping" color:[UIColor purpleColor]image:[UIImage imageNamed:@"shopping_cart"]];
     }
     
 }

@@ -13,7 +13,7 @@
 #import "MapViewController.h"
 #import "POICategory.h"
 #import "BlocSpot+CoreDataProperties.h"
-@interface SavedLocationsTableViewController () <NSFetchedResultsControllerDelegate>
+@interface SavedLocationsTableViewController () <NSFetchedResultsControllerDelegate, ShareLocationDelegate>
 
 @property (nonatomic, strong) NSArray *placesOfInterest;
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
@@ -47,10 +47,17 @@
     return _fetchedResultsController;
 }
 
+
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.isFiltering = NO;
     [self.fetchedResultsController performFetch:nil];
+}
+
+-(void)didLongPressCell:(SavedLocationsTableViewCell *)cell {
+    
+    UIActivityViewController *shareLocation = [[UIActivityViewController alloc]initWithActivityItems:@[cell.blocLocation.name, cell.blocLocation.category.name, cell.blocLocation.note] applicationActivities:nil];
+    [self presentViewController:shareLocation animated:YES completion:nil];
 }
 
 
@@ -129,9 +136,10 @@
     SavedLocationsTableViewCell *cell =(SavedLocationsTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"SavedLocationsTableViewCell" forIndexPath:indexPath];
     BlocSpot *dataItem = (BlocSpot *)self.fetchedResultsController.fetchedObjects[indexPath.row];
     POICategory *imageCategory = dataItem.category;
-    //cast-this is a BlocSpot object
     tableView.rowHeight = 87;
     cell.locationNameLabel.text = dataItem.name;
+    cell.delegate = self;
+    cell.blocLocation = dataItem;
     cell.sameTextView.text = dataItem.note;
     cell.imageView.image = imageCategory.logo;
     return cell;

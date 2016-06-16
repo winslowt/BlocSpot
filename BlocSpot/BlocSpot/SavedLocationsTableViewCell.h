@@ -10,9 +10,21 @@
 #import "SavedLocationsTableViewController.h"
 #import "PoiDetailController.h"
 
-@interface SavedLocationsTableViewCell : UITableViewCell
+@class SavedLocationsTableViewCell;
+@class BlocSpot;
+
+@protocol ShareLocationDelegate <NSObject>
+
+- (void)didLongPressCell:(SavedLocationsTableViewCell *)cell;
+
+@end
+
+@interface SavedLocationsTableViewCell : UITableViewCell <NSObject>
+
 @property (weak, nonatomic) IBOutlet UILabel *locationNameLabel;
 @property (weak, nonatomic) IBOutlet UITextView *sameTextView;
-
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
+@property (nonatomic, weak) id<ShareLocationDelegate> delegate; 
+@property (nonatomic, strong) BlocSpot *blocLocation;
 
 @end
