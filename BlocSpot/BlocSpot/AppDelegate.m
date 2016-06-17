@@ -19,8 +19,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [self.locationManager requestWhenInUseAuthorization];
+    [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert categories:nil]];
     self.locationManager = [[CLLocationManager alloc] init];
-                            
+    self.locationManager.pausesLocationUpdatesAutomatically = YES;
     [self setupAppearance];
     
     [self.window makeKeyAndVisible];
@@ -29,14 +30,29 @@
     return YES;
 }
 
-- (void)setupAppearance {
+- (void)startStandardUpdates {
+    // Create the location manager if this object does not
+    // already have one.
+//    if (nil == self.locationManager)
+//        self.locationManager = [[CLLocationManager alloc] init];
+//    
+//    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+    self.locationManager.distanceFilter = 500; // meters
     
+    [self.locationManager startUpdatingLocation];
+}
+-(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"Receive notification" object:notification];
+    
+}
+
+- (void)setupAppearance {
     UINavigationBar *navigationBarAppearance = [UINavigationBar appearance];
     navigationBarAppearance.barTintColor = [UIColor colorWithRed:84.0/155.0 green:45.0/120.0 blue:180.0/67.0 alpha:1.0f];
     navigationBarAppearance.tintColor = [UIColor whiteColor];
     navigationBarAppearance.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
-    
-    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

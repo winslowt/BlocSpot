@@ -34,7 +34,7 @@
     }
 }
 
-- (UIImage *)logoGo
+- (UIImage *)logo
 {
     if (self.logoData == nil) {
         return nil;

@@ -141,7 +141,7 @@
     cell.delegate = self;
     cell.blocLocation = dataItem;
     cell.sameTextView.text = dataItem.note;
-    cell.imageView.image = imageCategory.logo;
+    cell.imageForCategory.image = imageCategory.logo;
     return cell;
     //this is where you will set your BlocSpot content (images, notes)
     

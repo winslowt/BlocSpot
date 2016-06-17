@@ -67,9 +67,24 @@
     self.definesPresentationContext = YES;
     [self.view addSubview:self.searchController.searchBar];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(blocSpotted:) name:BlocSpotSelected object:nil];
+      [[NSNotificationCenter defaultCenter]addObserverForName:@"Receive notification" object:nil queue:nil usingBlock:^(NSNotification * _Nonnull note) {
+          UILocalNotification *localNotification = note.object;
+        
+          //notification you are posting from the app delegate
+          UIAlertController *alert = [UIAlertController alertControllerWithTitle:localNotification.alertTitle message:localNotification.alertBody preferredStyle:UIAlertControllerStyleAlert];
+          
+          UIAlertAction *dismiss = [UIAlertAction actionWithTitle:@"Okay" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+              [alert dismissViewControllerAnimated:YES completion:nil];
+          }];
+          
+          [alert addAction:dismiss];
+          
+          [self presentViewController:alert animated:YES completion:nil];
+      }];
     
     self.searchController.searchBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 40);
 }
+
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -191,6 +206,12 @@
     pointOfInterest.date = [NSDate date];
     [coreDataStack saveContext];
     
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.alertBody = @"You are close to your point of interest";
+    notification.alertTitle = @"Get Ready";
+    notification.region = [[CLCircularRegion alloc] initWithCenter:placeMark.coordinate radius:1600 identifier:pointOfInterest.name];
+    
+    [[UIApplication sharedApplication]scheduleLocalNotification:notification];
     return pointOfInterest;
 }
 
@@ -297,25 +318,12 @@
     
     self.resultsArray = resultsArray;
     NSLog(@"found results, %@", resultsArray);
-    
-    
 }
 
 - (void)errorFound:(NSString *)failureReason {
-    
+
     NSLog(@"Could not perform search");
-    
-    
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

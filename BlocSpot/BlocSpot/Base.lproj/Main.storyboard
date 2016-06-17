@@ -57,6 +57,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="imageForCategory" destination="Wg7-zf-kfX" id="YnU-vk-BNe"/>
                                     <outlet property="locationNameLabel" destination="ghI-R1-Pst" id="S5l-6n-KbR"/>
                                     <outlet property="sameTextView" destination="dcX-Sf-JMh" id="V8p-9f-Qd0"/>
                                 </connections>

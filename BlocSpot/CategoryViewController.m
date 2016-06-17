@@ -86,7 +86,10 @@
     return _fetchItBaby;
     
 }
-
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
+    
+}
 
 #pragma mark - Table view data source
 
@@ -120,9 +123,6 @@
     return categoryCell;
 }
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellEditingStyleNone;
-}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -136,6 +136,9 @@
         [self presentViewController:alert animated:YES completion:nil];
     } else {
         self.placeOfInterest.category = self.frcAlert.fetchedObjects[indexPath.row];
+        TWCoreDataStack *catStack = [TWCoreDataStack defaultStack];
+        [catStack.managedObjectContext save:nil];
+
         [[NSNotificationCenter defaultCenter] postNotificationName:DismissedCategory object:nil];
     }
 }
@@ -144,7 +147,6 @@
     
     POICategory *displayedCat = notification.object;
     self.categoryToDisplay = displayedCat;
-    
 }
 
 -(void)declareCategory:(NSString *)name color:(UIColor*)color image:(UIImage*)catImage {

@@ -26,5 +26,6 @@
 @property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
 @property (nonatomic, weak) id<ShareLocationDelegate> delegate; 
 @property (nonatomic, strong) BlocSpot *blocLocation;
+@property (weak, nonatomic) IBOutlet UIImageView *imageForCategory;
 
 @end

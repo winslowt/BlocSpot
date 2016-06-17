@@ -46,6 +46,8 @@
     [self updateView];
 }
 
+
+
 - (IBAction)pickCategory:(id)sender {
     
     self.catView = [self.storyboard instantiateViewControllerWithIdentifier:@"CategoryViewController"];
